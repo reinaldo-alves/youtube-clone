@@ -15,13 +15,12 @@ import SearchIcon from '../../assets/search.png'
 import MicIcon from '../../assets/microfone-gravador.png'
 import VideoIcon from '../../assets/video.png'
 import NotificationIcon from '../../assets/sino.png'
+import { useContext } from "react";
+import { OpenMenuContext } from "../../contexts/menuContext";
 
-interface IProps {
-    openMenu: boolean;
-    setOpenMenu: (openMenu: boolean) => void;
-}
-
-function Header( { openMenu, setOpenMenu }: IProps ) {
+function Header() {
+    const { openMenu, setOpenMenu } = useContext(OpenMenuContext);
+    
     return (
         <Container>
             <LogoContainer>
