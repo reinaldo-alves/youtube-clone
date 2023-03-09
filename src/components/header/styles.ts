@@ -72,5 +72,6 @@ export const SearchButton = styled.div`
 export const HeaderButton = styled.div`
     width: 200px;
     display: flex;
+    justify-content: center;
 `;
 
