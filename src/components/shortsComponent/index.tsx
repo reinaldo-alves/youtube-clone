@@ -1,12 +1,18 @@
 import { Container, ImageBanner, TextCard, TextContainer, Title } from './styles';
 
-function ShortsComponent() { 
+interface IShorts {
+    thumb: string,
+    title: string,
+    views: string
+}
+
+function ShortsComponent({ thumb, title, views}: IShorts) { 
     return (
         <Container>
-            <ImageBanner src="https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg" />
+            <ImageBanner src={thumb} />
             <TextContainer>
-                <Title>Marília Mendonça - Leão - Decretos Reais 2</Title>
-                <TextCard>109 mi de visualizações</TextCard>
+                <Title>{title}</Title>
+                <TextCard>{views}</TextCard>
             </TextContainer>
         </Container>
     )

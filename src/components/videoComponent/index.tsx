@@ -1,17 +1,23 @@
 import { ChannelImage, Container, ImageBanner, TextCard, TextContainer, Title, TitleContainer } from './styles';
 
-function VideoComponent() { 
+interface IVideo {
+    thumb: string,
+    avatar: string,
+    title: string,
+    channel: string,
+    views: string
+}
+
+function VideoComponent({thumb, avatar, title, channel, views}: IVideo) { 
     return (
         <Container>
-            <ImageBanner src="https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg" />
+            <ImageBanner src={thumb} />
             <TitleContainer>
-                <ChannelImage>
-                    MM
-                </ChannelImage>
+                <ChannelImage src={avatar} />
                 <TextContainer>
-                    <Title>Marília Mendonça - Leão - Decretos Reais 2</Title>
-                    <TextCard>Marília Mendonça</TextCard>
-                    <TextCard>109 mi de visualizações - há 2 meses</TextCard>
+                    <Title>{title}</Title>
+                    <TextCard>{channel}</TextCard>
+                    <TextCard>{views}</TextCard>
                 </TextContainer>
             </TitleContainer>
         </Container>

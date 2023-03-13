@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div<{ openMenu: boolean }>`
     width: ${({ openMenu }) => openMenu? '300px' : '100px'};
+    min-width: ${({ openMenu }) => openMenu? '250px' : '90px'};
     height: calc(100vh - 55px);
     box-sizing: border-box;
     padding: 5px 15px;
@@ -21,7 +22,7 @@ export const Section = styled.div<{ openMenu: boolean }>`
 
 export const MenuItem = styled.div<{ openMenu: boolean, vis: boolean }>`
     width: 98%;
-    min-height: ${({ openMenu }) => openMenu? '45px' : '70px'};
+    min-height: ${({ openMenu }) => openMenu? '40px' : '70px'};
     border-radius: 10px;
     cursor: pointer;
     padding: 2px 15px;
@@ -32,9 +33,10 @@ export const MenuItem = styled.div<{ openMenu: boolean, vis: boolean }>`
     justify-content: ${({ openMenu }) => openMenu? 'none' : 'center'};
 
     span {
-        font-weight: ${({ openMenu }) => openMenu? '600' : '400'};
+        font-weight: 400;
         margin-left: ${({ openMenu }) => openMenu? '20px' : 'none'};
-        font-size: ${({ openMenu }) => openMenu? '16px' : '12px'};
+        margin-top: ${({ openMenu }) => openMenu? 'none' : '7px'};
+        font-size: ${({ openMenu }) => openMenu? '15px' : '10px'};
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -47,14 +49,14 @@ export const MenuItem = styled.div<{ openMenu: boolean, vis: boolean }>`
 
 export const MenuTitle = styled.div<{ openMenu: boolean, title: string }>`
     padding: 2px 15px;
-    font-size: 19px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 400;
     box-sizing: border-box;
     display: ${({ openMenu, title }) => !openMenu? 'none' : title? 'block' : 'none'};
 `;
 
 export const ButtonIcon = styled.img`
-    width: 25px;
+    width: 20px;
 `;
 
 export const LinkContainer = styled.div<{ openMenu: boolean }>`
