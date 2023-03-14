@@ -17,9 +17,13 @@ import VideoIcon from '../../assets/video.png'
 import NotificationIcon from '../../assets/sino.png'
 import { useContext } from "react";
 import { OpenMenuContext } from "../../contexts/menuContext";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/userContext";
 
 function Header() {
+    const { login } = useContext(UserContext);
     const { openMenu, setOpenMenu } = useContext(OpenMenuContext);
+    const navigate = useNavigate();
     
     return (
         <Container>
@@ -53,9 +57,13 @@ function Header() {
                 <ButtonContainer margin='0 0 0 10px'>
                     <ButtonIcon alt="" src={NotificationIcon} />
                 </ButtonContainer>
-                <ButtonContainer margin='0 0 0 10px'>
-                    P
-                </ButtonContainer>
+                {login? 
+                    <ButtonContainer margin='0 0 0 10px'>
+                        P
+                    </ButtonContainer>
+                :
+                    <button onClick={() => navigate('/login')}>Fazer Login</button>
+                }
             </HeaderButton>
 
 

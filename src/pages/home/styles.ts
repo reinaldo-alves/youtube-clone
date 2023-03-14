@@ -13,6 +13,7 @@ export const Container = styled.div<{ shorts: boolean, openMenu: boolean }>`
 
 export const CategoriesContainer = styled.div<{ openMenu: boolean }>`
     width: calc(100vw - ${({ openMenu }) => openMenu? '300px' : '100px'});
+    padding: ${({ openMenu }) => openMenu? '0' : '0 24px'};
     display: flex;
     box-sizing: border-box;
     gap: 12px;
