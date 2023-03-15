@@ -5,19 +5,20 @@ interface IVideo {
     avatar: string,
     title: string,
     channel: string,
-    views: string
+    views: string,
+    time: string
 }
 
-function VideoComponent({thumb, avatar, title, channel, views}: IVideo) { 
+function VideoComponent({video}: any) { 
     return (
         <Container>
-            <ImageBanner src={thumb} />
+            <ImageBanner src={video.thumb} />
             <TitleContainer>
-                <ChannelImage src={avatar} />
+                <ChannelImage src={video.avatar} />
                 <TextContainer>
-                    <Title>{title}</Title>
-                    <TextCard>{channel}</TextCard>
-                    <TextCard>{views}</TextCard>
+                    <Title>{video.title}</Title>
+                    <TextCard>{video.channel}</TextCard>
+                    <TextCard>{video.views} de visualizações - há {video.time}</TextCard>
                 </TextContainer>
             </TitleContainer>
         </Container>

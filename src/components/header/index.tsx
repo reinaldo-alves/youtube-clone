@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 
 function Header() {
-    const { login } = useContext(UserContext);
+    const { login, logOut } = useContext(UserContext);
     const { openMenu, setOpenMenu } = useContext(OpenMenuContext);
     const navigate = useNavigate();
     
@@ -58,9 +58,12 @@ function Header() {
                     <ButtonIcon alt="" src={NotificationIcon} />
                 </ButtonContainer>
                 {login? 
-                    <ButtonContainer margin='0 0 0 10px'>
-                        P
-                    </ButtonContainer>
+                    <>
+                        <ButtonContainer margin='0 0 0 10px'>
+                            P
+                        </ButtonContainer>
+                        <span onClick={() => logOut()}>Sair</span>
+                    </>
                 :
                     <button onClick={() => navigate('/login')}>Fazer Login</button>
                 }

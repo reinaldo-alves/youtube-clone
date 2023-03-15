@@ -6,13 +6,13 @@ interface IShorts {
     views: string
 }
 
-function ShortsComponent({ thumb, title, views}: IShorts) { 
+function ShortsComponent({ short }: any) { 
     return (
         <Container>
-            <ImageBanner src={thumb} />
+            <ImageBanner src={short.thumb} />
             <TextContainer>
-                <Title>{title}</Title>
-                <TextCard>{views}</TextCard>
+                <Title>{short.title}</Title>
+                <TextCard>{short.views} de visualizações</TextCard>
             </TextContainer>
         </Container>
     )
