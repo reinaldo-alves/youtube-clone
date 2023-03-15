@@ -18,12 +18,12 @@ export const LogoContainer = styled.div`
     align-items: center;
 `;
 
-export const ButtonContainer = styled.div<{ margin?: string }>`
+export const ButtonContainer = styled.div<{ margin?: string, login?: boolean }>`
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin: ${({ margin }) => margin ? margin: 0};
-    display: flex;
+    display: ${({ login }) => !login ? 'flex' : 'none'};
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -70,9 +70,28 @@ export const SearchButton = styled.div`
     cursor: pointer;
 `;
 
-export const HeaderButton = styled.div`
-    width: 200px;
+export const HeaderButton = styled.div<{ login: boolean }>`
+    width: ${({ login }) => login ? '200px' : 'auto'};
     display: flex;
     justify-content: center;
+`;
+
+export const LoginButton = styled.div`
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    height: 35px;
+    color: #065fd4;
+    border-radius: 17px;
+    border: 1px solid #d3d3d3;
+    background: transparent;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    white-space: nowrap;
+    justify-content: flex-end;
+
+    :hover {
+        background-color: aliceblue;
+    }
 `;
 

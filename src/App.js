@@ -32,7 +32,6 @@ function App() {
 
 export default App;
 
-// Adicionar a primeira letra do usuário no ícone de usuário do header
 // Deixar a tela de login no padrão
 // Implementar sozinho um drop down menu a partir do ícone de usuário (inserindo o botão sair dentro)
 // Criar tela e integração para cadastro de usuário (acesso a partir da tela de login)

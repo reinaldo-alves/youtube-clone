@@ -7,12 +7,14 @@ export const UserStorage = ({ children }: any) => {
     const [login, setLogin] = useState(false);
     const [user, setUser] = useState({});
     const [token, setToken] = useState(localStorage.getItem('token') as string);
+    const [initial, setInitial] = useState('');
 
 
     const getUser = (token: string) => {
         api.get('/user/get-user', {headers:{Authorization: token}}).then(({ data }) => {
             setUser(data.user)
             setLogin(true)
+            setInitial(data.user.nome.charAt(0))
         }).catch((error) => {
             console.log('Usuário não autenticado', error)
         })
@@ -41,7 +43,7 @@ export const UserStorage = ({ children }: any) => {
 
     return (
         <UserContext.Provider value={{
-            login, user, handleLogin, logOut
+            login, user, handleLogin, logOut, initial
         }}>
             {children}
         </UserContext.Provider>

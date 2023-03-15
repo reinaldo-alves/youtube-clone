@@ -7,7 +7,8 @@ import {
     SearchInputContainer,
     SearchInput,
     SearchButton,
-    HeaderButton
+    HeaderButton,
+    LoginButton
 } from "./styles";
 import HamburgerIcon from '../../assets/hamburger.png'
 import Logo from '../../assets/YouTube-Logo.png'
@@ -21,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 
 function Header() {
-    const { login, logOut } = useContext(UserContext);
+    const { login, logOut, initial } = useContext(UserContext);
     const { openMenu, setOpenMenu } = useContext(OpenMenuContext);
     const navigate = useNavigate();
     
@@ -50,22 +51,24 @@ function Header() {
                 </ButtonContainer>
             </SearchContainer>
 
-            <HeaderButton>
-                <ButtonContainer margin='0 0 0 10px'>
+            <HeaderButton login={login}>
+                <ButtonContainer margin='0 0 0 10px' login={!login}>
                     <ButtonIcon alt="" src={VideoIcon} />
                 </ButtonContainer>
-                <ButtonContainer margin='0 0 0 10px'>
+                <ButtonContainer margin='0 0 0 10px' login={!login}>
                     <ButtonIcon alt="" src={NotificationIcon} />
                 </ButtonContainer>
                 {login? 
                     <>
                         <ButtonContainer margin='0 0 0 10px'>
-                            P
+                            {initial}
                         </ButtonContainer>
                         <span onClick={() => logOut()}>Sair</span>
                     </>
                 :
-                    <button onClick={() => navigate('/login')}>Fazer Login</button>
+                    <LoginButton onClick={() => navigate('/login')}>
+                        Fazer login
+                    </LoginButton>
                 }
             </HeaderButton>
 
