@@ -15,7 +15,7 @@ function App() {
           <Header />
           <div style={{ width: '100%', display: 'flex' }}>
             <Menu />
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/library' element={<Library />} />
@@ -32,8 +32,7 @@ function App() {
 
 export default App;
 
-// Deixar a tela de login no padrão
-// Implementar sozinho um drop down menu a partir do ícone de usuário (inserindo o botão sair dentro)
-// Criar tela e integração para cadastro de usuário (acesso a partir da tela de login)
-// Criar tela e integração para cadastro de vídeo (acesso a partir do drop down)
-// Implementação de pesquisa (usando valor digitado na barra de pesquisa)
+//3 - Implementar sozinho um drop down menu a partir do ícone de usuário (inserindo o botão sair dentro)
+//4 - Criar tela e integração para cadastro de usuário (acesso a partir da tela de login)
+//5 - Criar tela e integração para cadastro de vídeo (acesso a partir do drop down)
+//6 - Implementação de pesquisa (usando valor digitado na barra de pesquisa)

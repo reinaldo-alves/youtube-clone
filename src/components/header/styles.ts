@@ -18,12 +18,12 @@ export const LogoContainer = styled.div`
     align-items: center;
 `;
 
-export const ButtonContainer = styled.div<{ margin?: string, login?: boolean }>`
+export const ButtonContainer = styled.div<{ margin?: string }>`
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin: ${({ margin }) => margin ? margin: 0};
-    display: ${({ login }) => !login ? 'flex' : 'none'};
+    display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -74,6 +74,7 @@ export const HeaderButton = styled.div<{ login: boolean }>`
     width: ${({ login }) => login ? '200px' : 'auto'};
     display: flex;
     justify-content: center;
+    align-items: center;
 `;
 
 export const LoginButton = styled.div`
@@ -92,6 +93,46 @@ export const LoginButton = styled.div`
 
     :hover {
         background-color: aliceblue;
+    }
+`;
+
+export const UserAvatar = styled.div<{ login?: boolean }>`
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: ${({ login }) => login ? 'flex' : 'none'};
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: red;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+
+    :hover {
+        cursor: pointer;
+    }
+`;
+
+export const Dropdown = styled.nav<{ dropdown: boolean }>`
+    position: absolute;
+    top: 35px;
+    left: -232px;
+    background-color: aliceblue;
+    opacity: ${({ dropdown }) => dropdown ? '1' : '0'};
+    visibility: ${({ dropdown }) => dropdown ? 'visible' : 'hidden'};
+    width: 300px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px 0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+
+    ul li {
+        text-decoration: none;
+        list-style: none;
     }
 `;
 

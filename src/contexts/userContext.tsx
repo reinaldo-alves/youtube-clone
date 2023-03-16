@@ -1,5 +1,6 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import api from '../api';
+import { MenuContext } from './menuContext';
 
 export const UserContext = createContext({} as any);
 
@@ -8,6 +9,7 @@ export const UserStorage = ({ children }: any) => {
     const [user, setUser] = useState({});
     const [token, setToken] = useState(localStorage.getItem('token') as string);
     const [initial, setInitial] = useState('');
+    const { setDropdown } = useContext(MenuContext);
 
 
     const getUser = (token: string) => {
@@ -28,6 +30,7 @@ export const UserStorage = ({ children }: any) => {
         localStorage.removeItem('token');
         setLogin(false);
         setUser({});
+        setDropdown(false);
     }
 
     const handleLogin = (email: string, password: string) => {

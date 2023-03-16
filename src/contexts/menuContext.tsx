@@ -1,13 +1,14 @@
 import { createContext, useState } from "react";
 
-export const OpenMenuContext = createContext({} as any);
+export const MenuContext = createContext({} as any);
 
 export const MenuStore = ({ children }: any) => {
     const [openMenu, setOpenMenu] = useState(true);
+    const [dropdown, setDropdown] = useState(false);
     
     return (
-        <OpenMenuContext.Provider value={{openMenu, setOpenMenu}} >
+        <MenuContext.Provider value={{openMenu, setOpenMenu, dropdown, setDropdown}} >
             { children }
-        </OpenMenuContext.Provider>
+        </MenuContext.Provider>
     )
 }

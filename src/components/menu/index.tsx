@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { OpenMenuContext } from "../../contexts/menuContext";
+import { MenuContext } from "../../contexts/menuContext";
 import { Container, MenuItem, ButtonIcon, Section, MenuTitle, LinkContainer } from "./styles";
 import { useNavigate } from 'react-router-dom';
 import Home from '../../assets/home.png'
@@ -102,7 +102,7 @@ const Links = [
 ] 
 
 function Menu() {
-    const { openMenu } = useContext(OpenMenuContext);
+    const { openMenu } = useContext(MenuContext);
     const navigate = useNavigate();
     
     return (

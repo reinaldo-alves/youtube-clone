@@ -8,7 +8,9 @@ import {
     SearchInput,
     SearchButton,
     HeaderButton,
-    LoginButton
+    LoginButton,
+    UserAvatar,
+    Dropdown
 } from "./styles";
 import HamburgerIcon from '../../assets/hamburger.png'
 import Logo from '../../assets/YouTube-Logo.png'
@@ -17,15 +19,15 @@ import MicIcon from '../../assets/microfone-gravador.png'
 import VideoIcon from '../../assets/video.png'
 import NotificationIcon from '../../assets/sino.png'
 import { useContext } from "react";
-import { OpenMenuContext } from "../../contexts/menuContext";
+import { MenuContext } from "../../contexts/menuContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 
 function Header() {
     const { login, logOut, initial } = useContext(UserContext);
-    const { openMenu, setOpenMenu } = useContext(OpenMenuContext);
+    const { openMenu, setOpenMenu, dropdown, setDropdown } = useContext(MenuContext);
     const navigate = useNavigate();
-    
+
     return (
         <Container>
             <LogoContainer>
@@ -52,19 +54,34 @@ function Header() {
             </SearchContainer>
 
             <HeaderButton login={login}>
-                <ButtonContainer margin='0 0 0 10px' login={!login}>
-                    <ButtonIcon alt="" src={VideoIcon} />
-                </ButtonContainer>
-                <ButtonContainer margin='0 0 0 10px' login={!login}>
-                    <ButtonIcon alt="" src={NotificationIcon} />
-                </ButtonContainer>
                 {login? 
-                    <>
-                        <ButtonContainer margin='0 0 0 10px'>
+                <>
+                    <ButtonContainer margin='0 0 0 10px'>
+                        <ButtonIcon alt="" src={VideoIcon} />
+                    </ButtonContainer>
+                    <ButtonContainer margin='0 0 0 10px'>
+                        <ButtonIcon alt="" src={NotificationIcon} />
+                    </ButtonContainer>
+                    <div style={{position:'relative'}}>
+                        <UserAvatar onClick={() => setDropdown(!dropdown)} login={login}>
                             {initial}
-                        </ButtonContainer>
-                        <span onClick={() => logOut()}>Sair</span>
-                    </>
+                        </UserAvatar>
+                        <Dropdown dropdown={dropdown}>
+                            
+                            <ul>
+                                <li>
+                                    <a href="#">Editar conta</a>
+                                </li>
+                                <li>
+                                    <a href="#">Seus vídeos</a>
+                                </li>
+                                <li onClick={() => logOut()}>
+                                    Sair
+                                </li>
+                            </ul>
+                        </Dropdown>
+                    </div>
+                </>
                 :
                     <LoginButton onClick={() => navigate('/login')}>
                         Fazer login

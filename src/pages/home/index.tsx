@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { OpenMenuContext } from '../../contexts/menuContext';
+import { MenuContext } from '../../contexts/menuContext';
 import VideoComponent from "../../components/videoComponent";
 import { Container, CategoriesContainer, Categories, TitleShorts, ArrowDownButton } from "./styles";
 import ShortsComponent from '../../components/shortsComponent';
@@ -31,7 +31,7 @@ const shorts = [
 ]
 
 function Home() { 
-    const { openMenu } = useContext(OpenMenuContext);
+    const { openMenu } = useContext(MenuContext);
     
     return (
         <div style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center'}} >
