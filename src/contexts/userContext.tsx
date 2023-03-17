@@ -9,6 +9,7 @@ export const UserStorage = ({ children }: any) => {
     const [user, setUser] = useState({});
     const [token, setToken] = useState(localStorage.getItem('token') as string);
     const [initial, setInitial] = useState('');
+    const [avatar, setAvatar] = useState('');
     const [errorMessage, setErrorMessage] = useState(' ');
     const { setDropdown } = useContext(MenuContext);
 
@@ -18,6 +19,7 @@ export const UserStorage = ({ children }: any) => {
             setUser(data.user)
             setLogin(true)
             setInitial(data.user.nome.charAt(0))
+            setAvatar(data.user.avatar)
         }).catch((error) => {
             console.log('Usuário não autenticado', error)
         })
@@ -57,7 +59,7 @@ export const UserStorage = ({ children }: any) => {
 
     return (
         <UserContext.Provider value={{
-            login, user, handleLogin, logOut, initial, errorMessage, newUser
+            login, user, handleLogin, logOut, initial, errorMessage, newUser, avatar
         }}>
             {children}
         </UserContext.Provider>

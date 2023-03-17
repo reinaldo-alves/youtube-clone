@@ -96,15 +96,17 @@ export const LoginButton = styled.div`
     }
 `;
 
-export const UserAvatar = styled.div<{ login?: boolean }>`
+export const UserAvatar = styled.div<{ avatar: string }>`
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    margin-left: 10px;
-    display: ${({ login }) => login ? 'flex' : 'none'};
+    display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: ${({ avatar }) => avatar ? 'transparent' : 'red'};
+    background-image: url(${({ avatar }) => avatar ? avatar : ''});
+    background-size: cover;
+    background-position: 50% 50%;
     color: #fff;
     font-size: 18px;
     font-weight: 500;

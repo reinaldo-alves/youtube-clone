@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 
 function Header() {
-    const { login, logOut, initial, user } = useContext(UserContext);
+    const { login, logOut, initial, user, avatar } = useContext(UserContext);
     const { openMenu, setOpenMenu, dropdown, setDropdown } = useContext(MenuContext);
     const navigate = useNavigate();
 
@@ -67,16 +67,18 @@ function Header() {
                         <ButtonIcon alt="" src={NotificationIcon} />
                     </ButtonContainer>
                     <div style={{position:'relative'}}>
-                        <UserAvatar 
-                            onClick={() => setDropdown(!dropdown)}
-                            login={login}
-                            style={{cursor:'pointer'}}
-                        >
-                            {initial}
-                        </UserAvatar>
+                        <ButtonContainer margin='0 0 0 10px'>
+                            <UserAvatar 
+                                avatar={avatar}
+                                onClick={() => setDropdown(!dropdown)}
+                                style={{cursor:'pointer'}}
+                            >
+                                {avatar? '' : initial}
+                            </UserAvatar>
+                        </ButtonContainer>
                         <Dropdown dropdown={dropdown}>
                             <ProfileContainer>
-                                <UserAvatar login={login}>{initial}</UserAvatar>
+                                <UserAvatar avatar={avatar}>{avatar? '' : initial}</UserAvatar>
                                 <span>{user.nome}</span>
                             </ProfileContainer>
                             <ul>
