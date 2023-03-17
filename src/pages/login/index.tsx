@@ -5,7 +5,7 @@ import { Container, LoginButton, LoginInput, SignUpContainer, Subtitle, Title } 
 import Logo from '../../assets/YouTube-Logo.png';
 
 function Login(){
-    const { handleLogin } = useContext(UserContext);
+    const { handleLogin, errorMessage } = useContext(UserContext);
     const navigate = useNavigate();
     
     const [email, setEmail] = useState('');
@@ -34,13 +34,15 @@ function Login(){
             />
             <LoginButton onClick={() => {
                 handleLogin(email, password);
-                navigate('/')
             }}>
                 Login
             </LoginButton>
+            <span style={{color:'red', minHeight:'1.5rem'}}>
+                {errorMessage}
+            </span>
             <SignUpContainer>
                 Ainda não tem uma conta?
-                <span>Cadastre-se</span>
+                <span onClick={() => navigate('/signup')}>Cadastre-se</span>
             </SignUpContainer>
     </Container>
     )

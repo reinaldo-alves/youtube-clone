@@ -6,6 +6,7 @@ import History from './pages/history';
 import Home from './pages/home';
 import Library from './pages/library';
 import Login from './pages/login';
+import SignUp from './pages/signup';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path='/library' element={<Library />} />
                 <Route path='/history' element={<History />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<SignUp />} />
               </Routes>
             </div>
           </div>
@@ -32,7 +34,5 @@ function App() {
 
 export default App;
 
-//3 - Implementar sozinho um drop down menu a partir do ícone de usuário (inserindo o botão sair dentro)
-//4 - Criar tela e integração para cadastro de usuário (acesso a partir da tela de login)
 //5 - Criar tela e integração para cadastro de vídeo (acesso a partir do drop down)
 //6 - Implementação de pesquisa (usando valor digitado na barra de pesquisa)

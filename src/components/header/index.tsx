@@ -10,7 +10,9 @@ import {
     HeaderButton,
     LoginButton,
     UserAvatar,
-    Dropdown
+    Dropdown,
+    ProfileContainer,
+    MenuItem
 } from "./styles";
 import HamburgerIcon from '../../assets/hamburger.png'
 import Logo from '../../assets/YouTube-Logo.png'
@@ -18,13 +20,15 @@ import SearchIcon from '../../assets/search.png'
 import MicIcon from '../../assets/microfone-gravador.png'
 import VideoIcon from '../../assets/video.png'
 import NotificationIcon from '../../assets/sino.png'
+import Edit from '../../assets/edit.png'
+import Exit from '../../assets/logout.png'
 import { useContext } from "react";
 import { MenuContext } from "../../contexts/menuContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 
 function Header() {
-    const { login, logOut, initial } = useContext(UserContext);
+    const { login, logOut, initial, user } = useContext(UserContext);
     const { openMenu, setOpenMenu, dropdown, setDropdown } = useContext(MenuContext);
     const navigate = useNavigate();
 
@@ -63,20 +67,30 @@ function Header() {
                         <ButtonIcon alt="" src={NotificationIcon} />
                     </ButtonContainer>
                     <div style={{position:'relative'}}>
-                        <UserAvatar onClick={() => setDropdown(!dropdown)} login={login}>
+                        <UserAvatar 
+                            onClick={() => setDropdown(!dropdown)}
+                            login={login}
+                            style={{cursor:'pointer'}}
+                        >
                             {initial}
                         </UserAvatar>
                         <Dropdown dropdown={dropdown}>
-                            
+                            <ProfileContainer>
+                                <UserAvatar login={login}>{initial}</UserAvatar>
+                                <span>{user.nome}</span>
+                            </ProfileContainer>
                             <ul>
                                 <li>
-                                    <a href="#">Editar conta</a>
-                                </li>
-                                <li>
-                                    <a href="#">Seus vídeos</a>
+                                    <MenuItem>
+                                        <img alt="" src={Edit} />
+                                        <span>Editar conta</span>
+                                    </MenuItem>
                                 </li>
                                 <li onClick={() => logOut()}>
-                                    Sair
+                                    <MenuItem>
+                                        <img alt="" src={Exit} />
+                                        <span>Sair</span>
+                                    </MenuItem>
                                 </li>
                             </ul>
                         </Dropdown>

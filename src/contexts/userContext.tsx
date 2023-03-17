@@ -9,6 +9,7 @@ export const UserStorage = ({ children }: any) => {
     const [user, setUser] = useState({});
     const [token, setToken] = useState(localStorage.getItem('token') as string);
     const [initial, setInitial] = useState('');
+    const [errorMessage, setErrorMessage] = useState(' ');
     const { setDropdown } = useContext(MenuContext);
 
 
@@ -31,6 +32,7 @@ export const UserStorage = ({ children }: any) => {
         setLogin(false);
         setUser({});
         setDropdown(false);
+        setErrorMessage('');
     }
 
     const handleLogin = (email: string, password: string) => {
@@ -39,14 +41,23 @@ export const UserStorage = ({ children }: any) => {
             localStorage.setItem('token', data.token);
             setToken(data.token);
             getUser(data.token);
+            setErrorMessage(data.message);
         }).catch((error) => {
             console.log('Não foi possível fazer o login', error);
         })
     }
 
+    const newUser = (name: string, email: string, password: string, avatar: string) => {
+        api.post('/user/sign-up', {name, email, password, avatar}).then(() => {
+            alert('Usuário cadastrado com sucesso')
+        }).catch((error) => {
+            console.log('Não foi possível fazer o cadastro', error);
+        })
+    }
+
     return (
         <UserContext.Provider value={{
-            login, user, handleLogin, logOut, initial
+            login, user, handleLogin, logOut, initial, errorMessage, newUser
         }}>
             {children}
         </UserContext.Provider>

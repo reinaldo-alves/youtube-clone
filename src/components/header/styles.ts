@@ -104,25 +104,20 @@ export const UserAvatar = styled.div<{ login?: boolean }>`
     display: ${({ login }) => login ? 'flex' : 'none'};
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     background-color: red;
     color: #fff;
     font-size: 18px;
     font-weight: 500;
-
-    :hover {
-        cursor: pointer;
-    }
 `;
 
 export const Dropdown = styled.nav<{ dropdown: boolean }>`
     position: absolute;
     top: 35px;
-    left: -232px;
-    background-color: aliceblue;
+    left: -132px;
+    background-color: #fff;
     opacity: ${({ dropdown }) => dropdown ? '1' : '0'};
     visibility: ${({ dropdown }) => dropdown ? 'visible' : 'hidden'};
-    width: 300px;
+    width: 200px;
     box-sizing: border-box;
     border-radius: 12px;
     box-shadow: 0 1px 3px 0;
@@ -130,9 +125,58 @@ export const Dropdown = styled.nav<{ dropdown: boolean }>`
     display: flex;
     flex-direction: column;
 
-    ul li {
-        text-decoration: none;
-        list-style: none;
+    ul {
+        padding: 0;
+
+        li {
+            text-decoration: none;
+            list-style: none;
+        }
+
+    }
+
+`;
+
+export const ProfileContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #d3d3d3;
+    padding: 15px;
+
+    span {
+        margin: 0 10px 0 15px;
+        font-size: 16px;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 `;
 
+export const MenuItem = styled.div`
+    width: 100;
+    min-height: 40px;
+    cursor: pointer;
+    padding: 2px 15px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 20px;
+    }
+
+    span {
+        font-weight: 400;
+        margin-left: 20px;
+        font-size: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    :hover {
+        background-color: #f2f2f2;
+    }
+`;

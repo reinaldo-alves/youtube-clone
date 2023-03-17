@@ -17,6 +17,12 @@ export const TextContainer = styled.div`
 `;
 
 export const Title = styled.span`
+    max-height: 42px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-weight: 600;
     color: #0f0f0f;
     `;

@@ -14,18 +14,8 @@ export const Container = styled.div`
 export const Title = styled.h1`
     box-sizing: border-box;
     width: 300px;
-    padding-top: 16px;
+    padding: 16px 0 1px 0;
     font-size: 24px;
-    font-weight: 400;
-    text-align: center;
-    margin: 0;
-`;
-
-export const Subtitle = styled.div`
-    box-sizing: border-box;
-    width: 300px;
-    padding: 7px 0 1px 0;
-    font-size: 16px;
     font-weight: 400;
     text-align: center;
     margin-bottom: 24px;
@@ -75,15 +65,4 @@ export const SignUpContainer = styled.div`
     font-size: 14px;
     margin-top: 36px;
     text-align: center;
-
-    span {
-        color: #065fd4;
-        cursor: pointer;
-        font-weight: 500;
-        margin-left: 5px;
-
-        :hover {
-            text-decoration: underline;
-        }
-    }
 `;
