@@ -61,7 +61,11 @@ function Header() {
                 {login? 
                 <>
                     <ButtonContainer margin='0 0 0 10px'>
-                        <ButtonIcon alt="" src={VideoIcon} />
+                        <ButtonIcon 
+                            alt=""
+                            src={VideoIcon}
+                            onClick={() => navigate('/addvideo')}
+                        />
                     </ButtonContainer>
                     <ButtonContainer margin='0 0 0 10px'>
                         <ButtonIcon alt="" src={NotificationIcon} />

@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from "./components/header";
 import Menu from "./components/menu";
 import { UserStorage } from './contexts/userContext';
+import { VideoStorage } from './contexts/videoContext';
+import AddVideo from './pages/addVideo';
 import History from './pages/history';
 import Home from './pages/home';
 import Library from './pages/library';
@@ -11,23 +13,26 @@ import SignUp from './pages/signup';
 function App() {
   return (
     <UserStorage>
-      <BrowserRouter>
-        <div className="App">
-          <Header />
-          <div style={{ width: '100%', display: 'flex' }}>
-            <Menu />
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/library' element={<Library />} />
-                <Route path='/history' element={<History />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/signup' element={<SignUp />} />
-              </Routes>
+      <VideoStorage>
+        <BrowserRouter>
+          <div className="App">
+            <Header />
+            <div style={{ width: '100%', display: 'flex' }}>
+              <Menu />
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/library' element={<Library />} />
+                  <Route path='/history' element={<History />} />
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/signup' element={<SignUp />} />
+                  <Route path='/addvideo' element={<AddVideo />} />
+                </Routes>
+              </div>
             </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </VideoStorage>
     </UserStorage>
   );
 }
