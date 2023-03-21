@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 100%;
+    width: 85%;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 24px;
 `;
 
 export const ImageBanner = styled.img`
-    width: 100%;
+    max-width: 360px;
     aspect-ratio: 16 / 9;
     border-radius: 12px;
 `;
@@ -13,11 +16,14 @@ export const ImageBanner = styled.img`
 export const TitleContainer = styled.div`
     width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 20px;
 `;
 
 export const ChannelImage = styled.div<{avatar: string}>`
-    width: 35px;
-    height: 35px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     margin-right: 10px;
     display: flex;
@@ -28,14 +34,15 @@ export const ChannelImage = styled.div<{avatar: string}>`
     background-size: cover;
     background-position: 50% 50%;
     color: #fff;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
-    min-width: 35px;
+    min-width: 24px;
 `;
 
 export const TextContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
 `;
 
 export const Title = styled.span`
@@ -45,11 +52,15 @@ export const Title = styled.span`
     -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: 600;
+    font-weight: 500;
     color: #0f0f0f;
+    font-size: 18px;
+    line-height: 26px;
 `;
 
 export const TextCard = styled.span`
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
     color: #8c8c8c;
 `;

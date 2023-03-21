@@ -35,65 +35,50 @@ import Cfil from '../../assets/canal-filmes.png'
 import Cgam from '../../assets/canal-game.png'
 import Cmus from '../../assets/canal-musica.png'
 import Cset from '../../assets/arrow-down.png'
+import { UserContext } from "../../contexts/userContext";
+import { VideoContext } from "../../contexts/videoContext";
 
 const mainMenu = [
-    {icon: Home, title: 'Início', vis: true, link: '/'},
-    {icon: Shor, title: 'Shorts', vis: true, link: '/shorts'},
-    {icon: Subs, title: 'Inscrições', vis: true, link: '/subscriptions'}
-]
-
-const videoMenu = [
-    {icon: Libr, title: 'Biblioteca', vis: true, link: '/library'},
-    {icon: Hist, title: 'Histórico', vis: false, link: '/history'},
-    {icon: Yvid, title: 'Seus vídeos', vis: false, link: '/yourvideos'},
-    {icon: Wlat, title: 'Assistir mais tarde', vis: false, link: '/watchlater'},
-    {icon: Lvid, title: 'Vídeos marcados com "Gostei"', vis: false, link: '/likedvideos'}
+    {icon: Home, title: 'Início', vis: true, link: '/', cat: ''},
+    {icon: Shor, title: 'Shorts', vis: true, link: '/shorts', cat: ''},
+    {icon: Subs, title: 'Inscrições', vis: true, link: '/subscriptions', cat: ''}
 ]
 
 const subscriptionMenu = [
-    {icon: Cast, title: 'Astro Channel', vis: false, link: '/astrochannel'},
-    {icon: Cneg, title: 'Business Channel', vis: false, link: '/businesschannel'},
-    {icon: Cqua, title: 'HQ Channel', vis: false, link: '/hqchannel'},
-    {icon: Cptv, title: 'TV Channel', vis: false, link: '/tvchannel'},
-    {icon: Cfil, title: 'Movie Channel', vis: false, link: '/moviechannel'},
-    {icon: Cgam, title: 'Game Channel', vis: false, link: '/gamechannel'},
-    {icon: Cmus, title: 'Music Channel', vis: false, link: '/musicchannel'},
-    {icon: Cset, title: 'Mostrar mais 23', vis: false, link: '/subscriptions'}
+    {icon: Cast, title: 'Astro Channel', vis: false, link: '/astrochannel', cat: ''},
+    {icon: Cneg, title: 'Business Channel', vis: false, link: '/businesschannel', cat: ''},
+    {icon: Cqua, title: 'HQ Channel', vis: false, link: '/hqchannel', cat: ''},
+    {icon: Cptv, title: 'TV Channel', vis: false, link: '/tvchannel', cat: ''},
+    {icon: Cfil, title: 'Movie Channel', vis: false, link: '/moviechannel', cat: ''},
+    {icon: Cgam, title: 'Game Channel', vis: false, link: '/gamechannel', cat: ''},
+    {icon: Cmus, title: 'Music Channel', vis: false, link: '/musicchannel', cat: ''},
+    {icon: Cset, title: 'Mostrar mais 23', vis: false, link: '/subscriptions', cat: ''}
 ]
 
 const exploreMenu = [
-    {icon: Tren, title: 'Em alta', vis: false, link: '/tredings'},
-    {icon: Shop, title: 'Shopping', vis: false, link: '/shopping'},
-    {icon: Musi, title: 'Música', vis: false, link: '/music'},
-    {icon: Movi, title: 'Filmes', vis: false, link: '/movies'},
-    {icon: Live, title: 'Ao vivo', vis: false, link: '/live'},
-    {icon: Game, title: 'Jogos', vis: false, link: '/games'},
-    {icon: News, title: 'Notícias', vis: false, link: '/news'},
-    {icon: Spor, title: 'Esportes', vis: false, link: '/sports'},
-    {icon: Lear, title: 'Aprender', vis: false, link: '/learning'}
+    {icon: Tren, title: 'Em alta', vis: false, link: '/tredings', cat: ''},
+    {icon: Shop, title: 'Shopping', vis: false, link: '/categories/Shopping', cat: 'Shopping'},
+    {icon: Musi, title: 'Música', vis: false, link: '/categories/Música', cat: 'Música'},
+    {icon: Movi, title: 'Filmes', vis: false, link: '/categories/Filmes', cat: 'Filmes'},
+    {icon: Live, title: 'Ao vivo', vis: false, link: '/categories/Ao Vivo', cat: 'Ao Vivo'},
+    {icon: Game, title: 'Jogos', vis: false, link: '/categories/Jogos', cat: 'Jogos'},
+    {icon: News, title: 'Notícias', vis: false, link: '/categories/Notícias', cat: 'Notícias'},
+    {icon: Spor, title: 'Esportes', vis: false, link: '/categories/Esportes', cat: 'Esportes'},
+    {icon: Lear, title: 'Aprender', vis: false, link: '/categories/Aprender', cat: 'Aprender'}
 ]
 
 const plusMenu = [
-    {icon: Ypre, title: 'Youtube Premium', vis: false, link: '/youtube-premium'},
-    {icon: Ystu, title: 'Estúdio de Criação', vis: false, link: '/youtube-studio'},
-    {icon: Ymus, title: 'Youtube Music', vis: false, link: '/youtube-music'},
-    {icon: Ykid, title: 'Youtube Kids', vis: false, link: '/youtube-kids'}
+    {icon: Ypre, title: 'Youtube Premium', vis: false, link: '/youtube-premium', cat: ''},
+    {icon: Ystu, title: 'Estúdio de Criação', vis: false, link: '/youtube-studio', cat: ''},
+    {icon: Ymus, title: 'Youtube Music', vis: false, link: '/youtube-music', cat: ''},
+    {icon: Ykid, title: 'Youtube Kids', vis: false, link: '/youtube-kids', cat: ''}
 ]
 
 const helpMenu = [
-    {icon: Sett, title: 'Configurações', vis: false, link: '/settings'},
-    {icon: Repo, title: 'Histórico de denúncias', vis: false, link: '/reports'},
-    {icon: Help, title: 'Ajuda', vis: false, link: '/help'},
-    {icon: Feed, title: 'Enviar feedback', vis: false, link: '/sendfeedback'}
-]
-
-const Menus = [
-    {title: '', body: mainMenu},
-    {title: '', body: videoMenu},
-    {title: 'Inscrições', body: subscriptionMenu},
-    {title: 'Explorar', body: exploreMenu},
-    {title: 'Mais do Youtube', body: plusMenu},
-    {title: '', body: helpMenu}
+    {icon: Sett, title: 'Configurações', vis: false, link: '/settings', cat: ''},
+    {icon: Repo, title: 'Histórico de denúncias', vis: false, link: '/reports', cat: ''},
+    {icon: Help, title: 'Ajuda', vis: false, link: '/help', cat: ''},
+    {icon: Feed, title: 'Enviar feedback', vis: false, link: '/sendfeedback', cat: ''}
 ]
 
 const Links = [
@@ -103,8 +88,27 @@ const Links = [
 
 function Menu() {
     const { openMenu } = useContext(MenuContext);
+    const { user } = useContext(UserContext);
+    const { setCategory } = useContext(VideoContext);
     const navigate = useNavigate();
     
+    const videoMenu = [
+        {icon: Libr, title: 'Biblioteca', vis: true, link: '/library', cat: ''},
+        {icon: Hist, title: 'Histórico', vis: false, link: '/history', cat: ''},
+        {icon: Yvid, title: 'Seus vídeos', vis: false, link: `/yourvideos?user_id=${user.id}`, cat: ''},
+        {icon: Wlat, title: 'Assistir mais tarde', vis: false, link: '/watchlater', cat: ''},
+        {icon: Lvid, title: 'Vídeos marcados com "Gostei"', vis: false, link: '/likedvideos', cat: ''}
+    ]
+
+    const Menus = [
+        {title: '', body: mainMenu},
+        {title: '', body: videoMenu},
+        {title: 'Inscrições', body: subscriptionMenu},
+        {title: 'Explorar', body: exploreMenu},
+        {title: 'Mais do Youtube', body: plusMenu},
+        {title: '', body: helpMenu}
+    ]
+
     return (
         <Container openMenu={ openMenu }>
             {Menus.map((menu) => (
@@ -113,7 +117,14 @@ function Menu() {
                         {menu.title}
                     </MenuTitle>
                     {menu.body.map((item) => (
-                        <MenuItem openMenu={ openMenu } vis={item.vis} onClick={() => navigate(item.link)}>
+                        <MenuItem 
+                            openMenu={ openMenu }
+                            vis={item.vis}
+                            onClick={() => {
+                                navigate(item.link)
+                                setCategory(item.cat)
+                            }}
+                        >
                             <ButtonIcon alt="" src={item.icon} />
                             <span>{item.title}</span>
                         </MenuItem>

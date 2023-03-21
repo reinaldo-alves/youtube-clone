@@ -49,6 +49,10 @@ export const SearchInputContainer = styled.div`
     display: flex;
     align-items: center;
     padding: 0 16px;
+
+    :focus-within {
+        border-color: #065fd4
+    }
 `;
 
 export const SearchInput = styled.input`
@@ -64,10 +68,15 @@ export const SearchButton = styled.div`
     width: 70px;
     background-color: #f8f8f8;
     border: 1px solid #d3d3d3;
+    border-left: none;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    :hover {
+        background-color: #f2f2f2;
+    }
 `;
 
 export const HeaderButton = styled.div<{ login: boolean }>`
@@ -114,7 +123,7 @@ export const UserAvatar = styled.div<{ avatar: string }>`
 
 export const Dropdown = styled.nav<{ dropdown: boolean }>`
     position: absolute;
-    top: 35px;
+    top: 40px;
     left: -132px;
     background-color: #fff;
     opacity: ${({ dropdown }) => dropdown ? '1' : '0'};

@@ -22,14 +22,16 @@ import VideoIcon from '../../assets/video.png'
 import NotificationIcon from '../../assets/sino.png'
 import Edit from '../../assets/edit.png'
 import Exit from '../../assets/logout.png'
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MenuContext } from "../../contexts/menuContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
+import { VideoContext } from "../../contexts/videoContext";
 
 function Header() {
     const { login, logOut, initial, user, avatar } = useContext(UserContext);
     const { openMenu, setOpenMenu, dropdown, setDropdown } = useContext(MenuContext);
+    const { search, setSearch, searchVideos } = useContext(VideoContext);
     const navigate = useNavigate();
 
     return (
@@ -47,9 +49,19 @@ function Header() {
 
             <SearchContainer>
                 <SearchInputContainer>
-                    <SearchInput placeholder="Pesquisar" />
+                    <SearchInput 
+                        type={'text'}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Pesquisar"
+                    />
                 </SearchInputContainer>
-                <SearchButton>
+                <SearchButton 
+                    onClick={() => {
+                        searchVideos(search);
+                        navigate(`/search?search=${search}`);
+                    }}
+                >
                     <ButtonIcon alt="" src={SearchIcon} />
                 </SearchButton>
                 <ButtonContainer margin='0 0 0 10px'>

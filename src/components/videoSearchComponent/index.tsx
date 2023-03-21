@@ -9,22 +9,23 @@ interface IVideo {
     time: string
 }
 
-function VideoComponent({video}: any) { 
+function VideoSearchComponent({video}: any) { 
     return (
         <Container>
             <ImageBanner src={video.thumb} />
             <TitleContainer>
-                <ChannelImage avatar={video.avatar}>
-                    {video.avatar? '' : video.channel.charAt(0)}
-                </ChannelImage>
+                <Title>{video.title}</Title>
+                <TextCard>{video.views} visualizações - há {video.time}</TextCard>
                 <TextContainer>
-                    <Title>{video.title}</Title>
+                    <ChannelImage avatar={video.avatar}>
+                        {video.avatar? '' : video.channel.charAt(0)}
+                    </ChannelImage>
                     <TextCard>{video.channel}</TextCard>
-                    <TextCard>{video.views} visualizações - há {video.time}</TextCard>
                 </TextContainer>
+                <TextCard>{video.description}</TextCard>
             </TitleContainer>
         </Container>
     )
 }
 
-export default VideoComponent;
+export default VideoSearchComponent;

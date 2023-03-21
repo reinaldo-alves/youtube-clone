@@ -12,39 +12,41 @@ function Login(){
     const [password, setPassword] = useState('');
     
     return (
-        <Container>
-            <img 
-                style={{ cursor: 'pointer', width: '100px' }}
-                alt=''
-                src={Logo}
-            />
-            <Title>Fazer login</Title>
-            <Subtitle>Prosseguir no Youtube</Subtitle>
-            <LoginInput 
-                type='email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={'E-mail'}
-            />
-            <LoginInput 
-                type='password'
-                value={password}
-                onChange={(p) => setPassword(p.target.value)}
-                placeholder={'Senha'}
-            />
-            <LoginButton onClick={() => {
-                handleLogin(email, password);
-            }}>
-                Login
-            </LoginButton>
-            <span style={{color:'red', minHeight:'1.5rem'}}>
-                {errorMessage}
-            </span>
-            <SignUpContainer>
-                Ainda não tem uma conta?
-                <span onClick={() => navigate('/signup')}>Cadastre-se</span>
-            </SignUpContainer>
-    </Container>
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Container>
+                <img 
+                    style={{ cursor: 'pointer', width: '100px' }}
+                    alt=''
+                    src={Logo}
+                />
+                <Title>Fazer login</Title>
+                <Subtitle>Prosseguir no Youtube</Subtitle>
+                <LoginInput 
+                    type='email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={'E-mail'}
+                />
+                <LoginInput 
+                    type='password'
+                    value={password}
+                    onChange={(p) => setPassword(p.target.value)}
+                    placeholder={'Senha'}
+                />
+                <LoginButton onClick={() => {
+                    handleLogin(email, password);
+                }}>
+                    Login
+                </LoginButton>
+                <span style={{color:'red', minHeight:'1.5rem'}}>
+                    {errorMessage}
+                </span>
+                <SignUpContainer>
+                    Ainda não tem uma conta?
+                    <span onClick={() => navigate('/signup')}>Cadastre-se</span>
+                </SignUpContainer>
+            </Container>
+        </div>
     )
 }
 

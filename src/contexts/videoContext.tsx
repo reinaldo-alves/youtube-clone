@@ -1,50 +1,61 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import api from '../api';
+import { UserContext } from './userContext';
 
 export const VideoContext = createContext({} as any);
 
 export const VideoStorage = ({ children }: any) => {  
-    // const [login, setLogin] = useState(false);
-    // const [user, setUser] = useState({});
-    // const [ token ] = useState(localStorage.getItem('token') as string);
-    // const [initial, setInitial] = useState('');
-    // const [avatar, setAvatar] = useState('');
-    // const [videos, setVideos] = useState(initvideos);
+    const [videos, setVideos] = useState([]);
+    const [videoUser, setVideoUser] = useState([]);
+    const [videoCat, setVideoCat] = useState([]);
+    const [category, setCategory] = useState('');
+    const [videoSearch, setVideoSearch] = useState([]);
+    const [search, setSearch] = useState('');
+    const { user } = useContext(UserContext);
 
-    // const getUser = (token: string) => {
-    //     api.get('/user/get-user', {headers:{Authorization: token}}).then(({ data }) => {
-    //         setUser(data.user)
-    //         setLogin(true)
-    //         setInitial(data.user.nome.charAt(0))
-    //         setAvatar(data.user.avatar)
-    //     }).catch((error) => {
-    //         console.log('Usuário não autenticado', error)
-    //     })
-    // }
+    const getVideos = (user_id: string) => {
+        api.get(`/videos/get-videos?user_id=${user_id}`).then(({ data }) => {
+            setVideoUser(data.videos)
+        }).catch((error) => {
+            console.log('Erro ao carregar os vídeos do usuário', error)
+        })
+    }
 
-    // useEffect(() => {
-    //     getUser(token);
-    // },[token])
+    useEffect(() => {
+        getVideos(user.id);
+    },[videoUser])
 
-    // const logOut = () => {
-    //     localStorage.removeItem('token');
-    //     setLogin(false);
-    //     setUser({});
-    //     setDropdown(false);
-    //     setErrorMessage('');
-    // }
+    const getAllVideos = () => {
+        api.get('/videos/get-all-videos').then(({ data }) => {
+            setVideos(data.videos)
+        }).catch((error) => {
+            console.log('Erro ao carregar os vídeos', error)
+        })
+    }
 
-    // const handleLogin = (email: string, password: string) => {
-    //     api.post('/user/sign-in', {email, password}).then(({ data }) => {
-    //         setLogin(true);
-    //         localStorage.setItem('token', data.token);
-    //         setToken(data.token);
-    //         getUser(data.token);
-    //         setErrorMessage(data.message);
-    //     }).catch((error) => {
-    //         console.log('Não foi possível fazer o login', error);
-    //     })
-    // }
+    useEffect(() => {
+        getAllVideos();
+    },[videos])
+
+    const getVideosCat = (category: string) => {
+        api.get(`/videos/get-videos-cat/${category}`).then(({ data }) => {
+            setVideoCat(data.videos)
+        }).catch((error) => {
+            console.log('Erro ao carregar os vídeos', error)
+        })
+    }
+
+    useEffect(() => {
+        getVideosCat(category);
+    },[category])
+
+    const searchVideos = (search: string) => {
+        api.get(`/videos/search?search=${search}`).then(({ data }) => {
+            setVideoSearch(data.videos)
+        }).catch((error) => {
+            console.log('Erro ao buscar os vídeos', error)
+        })
+    }
 
     const newVideo = (token: string, title: string, description: string, user_id: string, thumb: string, views: string, time: string, category: string, channel: string, avatar: string) => {
         api.post('/videos/create-video', {title, description, user_id, thumb, views, time, category, channel, avatar}, {headers:{Authorization: token}}).then(() => {
@@ -56,7 +67,7 @@ export const VideoStorage = ({ children }: any) => {
 
     return (
         <VideoContext.Provider value={{
-            newVideo
+            newVideo, videos, videoUser, videoSearch, search, setSearch, searchVideos, category, setCategory, videoCat 
         }}>
             {children}
         </VideoContext.Provider>
