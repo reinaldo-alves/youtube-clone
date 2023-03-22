@@ -135,6 +135,7 @@ export const Dropdown = styled.nav<{ dropdown: boolean }>`
     border: none;
     display: flex;
     flex-direction: column;
+    z-index: 6;
 
     ul {
         padding: 0;
@@ -190,4 +191,15 @@ export const MenuItem = styled.div`
     :hover {
         background-color: #f2f2f2;
     }
+`;
+
+export const Overlay = styled.div<{ dropdown: boolean }>`
+    display: ${({ dropdown }) => dropdown ? 'block' : 'none'};
+    background-color: transparent;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
 `;

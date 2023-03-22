@@ -13,6 +13,7 @@ export const ImageBanner = styled.img`
 export const TitleContainer = styled.div`
     width: 100%;
     display: flex;
+    margin-top: 8px;
 `;
 
 export const ChannelImage = styled.div<{avatar: string}>`

@@ -12,7 +12,8 @@ import {
     UserAvatar,
     Dropdown,
     ProfileContainer,
-    MenuItem
+    MenuItem,
+    Overlay
 } from "./styles";
 import HamburgerIcon from '../../assets/hamburger.png'
 import Logo from '../../assets/YouTube-Logo.png'
@@ -22,7 +23,9 @@ import VideoIcon from '../../assets/video.png'
 import NotificationIcon from '../../assets/sino.png'
 import Edit from '../../assets/edit.png'
 import Exit from '../../assets/logout.png'
-import { useContext, useState } from "react";
+import Yvid from '../../assets/yourvideos.png'
+import Shor from '../../assets/Shorts.png'
+import { useContext } from "react";
 import { MenuContext } from "../../contexts/menuContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
@@ -30,9 +33,19 @@ import { VideoContext } from "../../contexts/videoContext";
 
 function Header() {
     const { login, logOut, initial, user, avatar } = useContext(UserContext);
-    const { openMenu, setOpenMenu, dropdown, setDropdown } = useContext(MenuContext);
+    const { openMenu, setOpenMenu, dropdown, setDropdown, dropVideo, setDropVideo } = useContext(MenuContext);
     const { search, setSearch, searchVideos } = useContext(VideoContext);
     const navigate = useNavigate();
+    const userMenu = [
+        {icon: Edit, title: 'Editar conta', link: () => {}},
+        {icon: Yvid, title: 'Seus vídeos', link: () => navigate(`/yourvideos?user_id=${user.id}`)},
+        {icon: Shor, title: 'Seus shorts', link: () => navigate(`/yourshorts?user_id=${user.id}`)},
+        {icon: Exit, title: 'Sair', link: () => logOut()}
+    ]
+    const videoMenu = [
+        {icon: VideoIcon, title: 'Adicionar vídeo', link: () => navigate('/addvideo')},
+        {icon: Shor, title: 'Adicionar shorts', link: () => navigate('/addshorts')}
+    ]
 
     return (
         <Container>
@@ -72,46 +85,59 @@ function Header() {
             <HeaderButton login={login}>
                 {login? 
                 <>
-                    <ButtonContainer margin='0 0 0 10px'>
-                        <ButtonIcon 
-                            alt=""
-                            src={VideoIcon}
-                            onClick={() => navigate('/addvideo')}
-                        />
-                    </ButtonContainer>
+                    <div style={{position:'relative'}}>
+                        <ButtonContainer
+                            margin='0 0 0 10px'
+                            onClick={() => setDropVideo(!dropVideo)}
+                        >
+                            <ButtonIcon alt="" src={VideoIcon}/>
+                        </ButtonContainer>
+                        <Dropdown dropdown={dropVideo} onClick={() => setDropVideo(false)}>
+                            <ul>
+                                {videoMenu.map((item) => (
+                                    <li onClick={item.link}>
+                                        <MenuItem>
+                                            <img alt="" src={item.icon} />
+                                            <span>{item.title}</span>
+                                        </MenuItem>
+                                    </li>
+                                ))}
+                            </ul>
+                        </Dropdown>
+                        <Overlay dropdown={dropVideo} onClick={() => setDropVideo(false)}/>
+                    </div>
                     <ButtonContainer margin='0 0 0 10px'>
                         <ButtonIcon alt="" src={NotificationIcon} />
                     </ButtonContainer>
                     <div style={{position:'relative'}}>
-                        <ButtonContainer margin='0 0 0 10px'>
+                        <ButtonContainer
+                            margin='0 0 0 10px'
+                            onClick={() => setDropdown(!dropdown)}
+                        >
                             <UserAvatar 
                                 avatar={avatar}
-                                onClick={() => setDropdown(!dropdown)}
                                 style={{cursor:'pointer'}}
                             >
                                 {avatar? '' : initial}
                             </UserAvatar>
                         </ButtonContainer>
-                        <Dropdown dropdown={dropdown}>
+                        <Dropdown dropdown={dropdown} onClick={() => setDropdown(false)}>
                             <ProfileContainer>
                                 <UserAvatar avatar={avatar}>{avatar? '' : initial}</UserAvatar>
                                 <span>{user.nome}</span>
                             </ProfileContainer>
                             <ul>
-                                <li>
-                                    <MenuItem>
-                                        <img alt="" src={Edit} />
-                                        <span>Editar conta</span>
-                                    </MenuItem>
-                                </li>
-                                <li onClick={() => logOut()}>
-                                    <MenuItem>
-                                        <img alt="" src={Exit} />
-                                        <span>Sair</span>
-                                    </MenuItem>
-                                </li>
+                                {userMenu.map((item) => (
+                                    <li onClick={item.link}>
+                                        <MenuItem>
+                                            <img alt="" src={item.icon} />
+                                            <span>{item.title}</span>
+                                        </MenuItem>
+                                    </li>
+                                ))}
                             </ul>
                         </Dropdown>
+                        <Overlay dropdown={dropdown} onClick={() => setDropdown(false)}/>
                     </div>
                 </>
                 :
