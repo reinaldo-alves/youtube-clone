@@ -7,12 +7,16 @@ interface IShorts {
 }
 
 function ShortsComponent({ short }: any) { 
+    if(!short) {
+        short = {thumb: '', title: '', views: ''}
+    }
+
     return (
         <Container>
             <ImageBanner src={short.thumb} />
             <TextContainer>
                 <Title>{short.title}</Title>
-                <TextCard>{short.views} de visualizações</TextCard>
+                <TextCard>{short.views} visualizações</TextCard>
             </TextContainer>
         </Container>
     )

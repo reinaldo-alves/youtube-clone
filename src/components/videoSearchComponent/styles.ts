@@ -46,7 +46,7 @@ export const TextContainer = styled.div`
 `;
 
 export const Title = styled.span`
-    max-height: 42px;
+    max-height: 60px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

@@ -30,11 +30,13 @@ import { MenuContext } from "../../contexts/menuContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 import { VideoContext } from "../../contexts/videoContext";
+import { ShortContext } from "../../contexts/shortContext";
 
 function Header() {
     const { login, logOut, initial, user, avatar } = useContext(UserContext);
     const { openMenu, setOpenMenu, dropdown, setDropdown, dropVideo, setDropVideo } = useContext(MenuContext);
     const { search, setSearch, searchVideos } = useContext(VideoContext);
+    const { searchShorts } = useContext(ShortContext);
     const navigate = useNavigate();
     const userMenu = [
         {icon: Edit, title: 'Editar conta', link: () => {}},
@@ -72,6 +74,7 @@ function Header() {
                 <SearchButton 
                     onClick={() => {
                         searchVideos(search);
+                        searchShorts(search)
                         navigate(`/search?search=${search}`);
                     }}
                 >

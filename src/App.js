@@ -12,7 +12,9 @@ import Home from './pages/home';
 import Library from './pages/library';
 import Login from './pages/login';
 import Search from './pages/search';
+import Shorts from './pages/Shorts';
 import SignUp from './pages/signup';
+import YourShorts from './pages/yourShorts';
 import YourVideos from './pages/yourVideos';
 
 function App() {
@@ -35,7 +37,9 @@ function App() {
                     <Route path='/addvideo' element={<AddVideo />} />
                     <Route path='/addshorts' element={<AddShorts />} />
                     <Route path='/yourvideos' element={<YourVideos />} />
+                    <Route path='/yourshorts' element={<YourShorts />} />
                     <Route path='/search' element={<Search />} />
+                    <Route path='/shorts' element={<Shorts />} />
                     <Route path='/categories/:category' element={<Categories />} />
                   </Routes>
                 </div>
@@ -49,5 +53,3 @@ function App() {
 }
 
 export default App;
-
-//4 - Criar página de exibição de shorts 

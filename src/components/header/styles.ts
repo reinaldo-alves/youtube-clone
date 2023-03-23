@@ -107,6 +107,7 @@ export const LoginButton = styled.div`
 
 export const UserAvatar = styled.div<{ avatar: string }>`
     width: 32px;
+    min-width: 32px;
     height: 32px;
     border-radius: 50%;
     display: flex;

@@ -8,7 +8,6 @@ export const ShortStorage = ({ children }: any) => {
     const [shorts, setShorts] = useState([]);
     const [shortUser, setShortUser] = useState([]);
     const [shortSearch, setShortSearch] = useState([]);
-    const [search, setSearch] = useState('');
     const { user } = useContext(UserContext);
 
     const getShorts = (user_id: string) => {
@@ -53,7 +52,7 @@ export const ShortStorage = ({ children }: any) => {
 
     return (
         <ShortContext.Provider value={{
-            newShort, shorts, shortUser, shortSearch, search, setSearch, searchShorts 
+            newShort, shorts, shortUser, shortSearch, searchShorts 
         }}>
             {children}
         </ShortContext.Provider>

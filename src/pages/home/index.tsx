@@ -6,21 +6,16 @@ import ShortsComponent from '../../components/shortsComponent';
 import Arrow from '../../assets/arrow-down.png'
 import Shorts from '../../assets/shorts-color.png'
 import { VideoContext } from '../../contexts/videoContext';
+import { ShortContext } from '../../contexts/shortContext';
+import { useNavigate } from 'react-router-dom';
 
 const categories = ['Tudo', 'Mixes', 'Submarinos', 'Aviação', 'Forró', 'Ferramentas', 'Música Sertaneja', 'Marcenarias', 'Engenharia Elétrica', 'Voo', 'Copa do Mundo', 'Magníficos']
-
-const shorts = [
-    {thumb: "https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg", title: "Marília Mendonça - Leão - Decretos Reais 2", views: "109 mi"}, 
-    {thumb: "https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg", title: "Marília Mendonça - Leão - Decretos Reais 2", views: "109 mi"}, 
-    {thumb: "https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg", title: "Marília Mendonça - Leão - Decretos Reais 2", views: "109 mi"}, 
-    {thumb: "https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg", title: "Marília Mendonça - Leão - Decretos Reais 2", views: "109 mi"}, 
-    {thumb: "https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg", title: "Marília Mendonça - Leão - Decretos Reais 2", views: "109 mi"}, 
-    {thumb: "https://i.ytimg.com/vi/tI55Zu9uZEM/maxresdefault.jpg", title: "Marília Mendonça - Leão - Decretos Reais 2", views: "109 mi"}
-]
 
 function Home() { 
     const { openMenu } = useContext(MenuContext);
     const { videos } = useContext(VideoContext);
+    const { shorts } = useContext(ShortContext);
+    const navigate = useNavigate();
     
     return (
         <div style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center'}} >
@@ -39,11 +34,14 @@ function Home() {
                 <span>Shorts</span>
             </TitleShorts>
             <Container shorts={true} openMenu={ openMenu }>
-                {shorts.map((short) => (
-                    <ShortsComponent short={short} />
-                ))}
+                <ShortsComponent short={shorts[0]} />
+                <ShortsComponent short={shorts[1]} />
+                <ShortsComponent short={shorts[2]} />
+                <ShortsComponent short={shorts[3]} />
+                <ShortsComponent short={shorts[4]} />
+                <ShortsComponent short={shorts[5]} />
             </Container>
-            <ArrowDownButton>
+            <ArrowDownButton onClick={() => navigate('/shorts')}>
                 <img src={Arrow} alt="arrowdown" />
             </ArrowDownButton>
         </div>
