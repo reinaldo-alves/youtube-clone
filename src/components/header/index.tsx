@@ -33,7 +33,7 @@ import { VideoContext } from "../../contexts/videoContext";
 import { ShortContext } from "../../contexts/shortContext";
 
 function Header() {
-    const { login, logOut, initial, user, avatar } = useContext(UserContext);
+    const { token, login, logOut, initial, user, avatar } = useContext(UserContext);
     const { openMenu, setOpenMenu, dropdown, setDropdown, dropVideo, setDropVideo } = useContext(MenuContext);
     const { search, setSearch, searchVideos } = useContext(VideoContext);
     const { searchShorts } = useContext(ShortContext);
@@ -85,8 +85,8 @@ function Header() {
                 </ButtonContainer>
             </SearchContainer>
 
-            <HeaderButton login={login}>
-                {login? 
+            <HeaderButton login={login} token={token}>
+                {login && token? 
                 <>
                     <div style={{position:'relative'}}>
                         <ButtonContainer

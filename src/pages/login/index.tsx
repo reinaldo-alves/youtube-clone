@@ -1,15 +1,21 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/userContext';
 import { Container, LoginButton, LoginInput, SignUpContainer, Subtitle, Title } from './styles';
 import Logo from '../../assets/YouTube-Logo.png';
 
 function Login(){
-    const { handleLogin, errorMessage } = useContext(UserContext);
+    const { token, login, handleLogin, errorMessage } = useContext(UserContext);
     const navigate = useNavigate();
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        if(login && token){
+            navigate('/');
+        }
+    },[login, token])
     
     return (
         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>

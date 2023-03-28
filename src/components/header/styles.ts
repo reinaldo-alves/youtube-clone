@@ -79,8 +79,8 @@ export const SearchButton = styled.div`
     }
 `;
 
-export const HeaderButton = styled.div<{ login: boolean }>`
-    width: ${({ login }) => login ? '200px' : 'auto'};
+export const HeaderButton = styled.div<{ login: boolean, token: string }>`
+    width: ${({ login, token }) => login && token ? '200px' : 'auto'};
     display: flex;
     justify-content: center;
     align-items: center;
