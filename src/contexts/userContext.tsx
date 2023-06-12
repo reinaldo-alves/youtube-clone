@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import api from '../api';
 import { MenuContext } from './menuContext';
+import { selectRandom } from '../utilities/functions';
 
 export const UserContext = createContext({} as any);
 
@@ -10,9 +11,11 @@ export const UserStorage = ({ children }: any) => {
     const [token, setToken] = useState(localStorage.getItem('token') as string);
     const [initial, setInitial] = useState('');
     const [avatar, setAvatar] = useState('');
+    const [userColor, setUserColor] = useState('');
     const [errorMessage, setErrorMessage] = useState(' ');
     const { setDropdown } = useContext(MenuContext);
 
+    const colors = ['red', 'blue', 'pink', 'green', 'gray', 'orange', 'brown']
 
     const getUser = (token: string) => {
         api.get('/user/get-user', {headers:{Authorization: token}}).then(({ data }) => {
@@ -20,6 +23,7 @@ export const UserStorage = ({ children }: any) => {
             setLogin(true)
             setInitial(data.user.nome.charAt(0))
             setAvatar(data.user.avatar)
+            setUserColor(data.user.color)
         }).catch((error) => {
             console.log('Usuário não autenticado', error)
         })
@@ -50,7 +54,8 @@ export const UserStorage = ({ children }: any) => {
     }
 
     const newUser = (name: string, email: string, password: string, avatar: string) => {
-        api.post('/user/sign-up', {name, email, password, avatar}).then(() => {
+        const color = selectRandom(colors);
+        api.post('/user/sign-up', {name, email, password, avatar, color}).then(() => {
             alert('Usuário cadastrado com sucesso')
         }).catch((error) => {
             console.log('Não foi possível fazer o cadastro', error);
@@ -59,7 +64,7 @@ export const UserStorage = ({ children }: any) => {
 
     return (
         <UserContext.Provider value={{
-            login, user, handleLogin, logOut, initial, errorMessage, newUser, avatar, token
+            login, user, handleLogin, logOut, initial, errorMessage, newUser, avatar, token, userColor
         }}>
             {children}
         </UserContext.Provider>

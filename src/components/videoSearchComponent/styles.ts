@@ -8,6 +8,7 @@ export const Container = styled.div`
 `;
 
 export const ImageBanner = styled.img`
+    min-width: 360px;
     max-width: 360px;
     aspect-ratio: 16 / 9;
     border-radius: 12px;
@@ -21,7 +22,7 @@ export const TitleContainer = styled.div`
     margin-left: 20px;
 `;
 
-export const ChannelImage = styled.div<{avatar: string}>`
+export const ChannelImage = styled.div<{avatar: string, color: string}>`
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -29,7 +30,7 @@ export const ChannelImage = styled.div<{avatar: string}>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({ avatar }) => avatar ? 'transparent' : 'red'};
+    background-color: ${({ avatar, color }) => avatar ? 'transparent' : color};
     background-image: url(${({ avatar }) => avatar ? avatar : ''});
     background-size: cover;
     background-position: 50% 50%;

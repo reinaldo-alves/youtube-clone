@@ -1,26 +1,19 @@
+import { IVideos } from '../../types/types';
+import { convertTime, convertViews } from '../../utilities/functions';
 import { ChannelImage, Container, ImageBanner, TextCard, TextContainer, Title, TitleContainer } from './styles';
 
-interface IVideo {
-    thumb: string,
-    avatar: string,
-    title: string,
-    channel: string,
-    views: string,
-    time: string
-}
-
-function VideoComponent({video}: any) { 
+function VideoComponent(props: IVideos) { 
     return (
         <Container>
-            <ImageBanner src={video.thumb} />
+            <ImageBanner src={props.thumb} />
             <TitleContainer>
-                <ChannelImage avatar={video.avatar}>
-                    {video.avatar? '' : video.channel.charAt(0)}
+                <ChannelImage avatar={props.avatar} color={props.color}>
+                    {props.avatar? '' : props.channel.charAt(0)}
                 </ChannelImage>
                 <TextContainer>
-                    <Title>{video.title}</Title>
-                    <TextCard>{video.channel}</TextCard>
-                    <TextCard>{video.views} visualizações - há {video.time}</TextCard>
+                    <Title>{props.title}</Title>
+                    <TextCard>{props.channel}</TextCard>
+                    <TextCard>{convertViews(props.views)} visualizações - {convertTime(props.time)}</TextCard>
                 </TextContainer>
             </TitleContainer>
         </Container>

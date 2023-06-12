@@ -47,6 +47,23 @@ export const LoginInput = styled.input`
     }
 `;
 
+export const ShowPasswordHandler = styled.div`
+    width: 300px;
+    font-size: 14px;
+    text-align: left;
+    color: #065fd4;
+    font-weight: 500;
+    margin-left: 5px;
+    
+    span {
+        cursor: pointer;
+
+        :hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
 export const LoginButton = styled.button`
     box-sizing: border-box;
     margin-top: 24px;

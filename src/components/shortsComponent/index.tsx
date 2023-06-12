@@ -1,12 +1,8 @@
+import { IShorts } from '../../types/types';
+import { convertViews } from '../../utilities/functions';
 import { Container, ImageBanner, TextCard, TextContainer, Title } from './styles';
 
-interface IShorts {
-    thumb: string,
-    title: string,
-    views: string
-}
-
-function ShortsComponent({ short }: any) { 
+function ShortsComponent(short: IShorts) { 
     if(!short) {
         short = {thumb: '', title: '', views: ''}
     }
@@ -16,7 +12,7 @@ function ShortsComponent({ short }: any) {
             <ImageBanner src={short.thumb} />
             <TextContainer>
                 <Title>{short.title}</Title>
-                <TextCard>{short.views} visualizações</TextCard>
+                <TextCard>{convertViews(short.views)} visualizações</TextCard>
             </TextContainer>
         </Container>
     )

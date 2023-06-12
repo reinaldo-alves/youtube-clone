@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/userContext';
-import { Container, LoginButton, LoginInput, SignUpContainer, Subtitle, Title } from './styles';
+import { Container, LoginButton, LoginInput, ShowPasswordHandler, SignUpContainer, Subtitle, Title } from './styles';
 import Logo from '../../assets/YouTube-Logo.png';
 
 function Login(){
@@ -10,6 +10,7 @@ function Login(){
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         if(login && token){
@@ -32,15 +33,40 @@ function Login(){
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={'E-mail'}
+                    onKeyUp={(e) => {
+                        if (e.key === 'Enter') {
+                            if (email.trim() && password.trim()) {
+                                handleLogin(email, password);
+                            } else {
+                                alert('Preencha todos os dados corretamente')
+                            }
+                        }
+                    }}
                 />
                 <LoginInput 
-                    type='password'
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(p) => setPassword(p.target.value)}
                     placeholder={'Senha'}
+                    onKeyUp={(e) => {
+                        if (e.key === 'Enter') {
+                            if (email.trim() && password.trim()) {
+                                handleLogin(email, password);
+                            } else {
+                                alert('Preencha todos os dados corretamente')
+                            }
+                        }
+                    }}
                 />
+                <ShowPasswordHandler onClick={() => setShowPassword(!showPassword)}>
+                    <span>{showPassword? 'Ocultar senha' : 'Mostrar senha'}</span>
+                </ShowPasswordHandler>
                 <LoginButton onClick={() => {
-                    handleLogin(email, password);
+                    if (email.trim() && password.trim()) {
+                        handleLogin(email, password);
+                    } else {
+                        alert('Preencha todos os dados corretamente')
+                    }
                 }}>
                     Login
                 </LoginButton>

@@ -105,7 +105,7 @@ export const LoginButton = styled.div`
     }
 `;
 
-export const UserAvatar = styled.div<{ avatar: string }>`
+export const UserAvatar = styled.div<{ avatar: string, color: string }>`
     width: 32px;
     min-width: 32px;
     height: 32px;
@@ -113,7 +113,7 @@ export const UserAvatar = styled.div<{ avatar: string }>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({ avatar }) => avatar ? 'transparent' : 'red'};
+    background-color: ${({ avatar, color }) => avatar ? 'transparent' : color};
     background-image: url(${({ avatar }) => avatar ? avatar : ''});
     background-size: cover;
     background-position: 50% 50%;

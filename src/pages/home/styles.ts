@@ -10,37 +10,6 @@ export const Container = styled.div<{ shorts: boolean, openMenu: boolean }>`
     padding: 24px;
 `;
 
-export const CategoriesContainer = styled.div<{ openMenu: boolean }>`
-    width: calc(100vw - ${({ openMenu }) => openMenu? '300px' : '100px'});
-    padding: ${({ openMenu }) => openMenu? '0' : '0 24px'};
-    display: flex;
-    box-sizing: border-box;
-    gap: 12px;
-    white-space: nowrap;
-    overflow-x: auto;
-`;
-
-export const Categories = styled.div`
-    margin: 12px 0;
-    border-radius: 8px;
-    border: none;
-    height: 32px;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    background-color: #f2f2f2;
-    font-size: 14px;
-    font-weight: 400;
-    white-space: nowrap;
-    padding: 0 12px;
-
-    :hover {
-        background-color: #d8d8d8;
-    }
-`;
-
 export const TitleShorts = styled.div`
     width: calc(100% - 48px);
     border-top: 4px solid #d4d4d4;

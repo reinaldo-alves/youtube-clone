@@ -5,6 +5,7 @@ import VideoSearchComponent from '../../components/videoSearchComponent';
 import { ShortContext } from '../../contexts/shortContext';
 import Shorts from '../../assets/shorts-color.png'
 import ShortsComponent from '../../components/shortsComponent';
+import { IShorts, IVideos } from '../../types/types';
 
 function Search() { 
     const { videoSearch } = useContext(VideoContext);
@@ -19,8 +20,17 @@ function Search() {
                     ''
                 :
                     <Container short={shortSearch.length}>
-                        {videoSearch.map((video: Array<Object>) => (
-                            <VideoSearchComponent video={video} />
+                        {videoSearch.map((video: IVideos) => (
+                            <VideoSearchComponent 
+                                thumb={video.thumb}
+                                title={video.title}
+                                views={video.views}
+                                time={video.time}
+                                avatar={video.avatar}
+                                color={video.color}
+                                channel={video.channel}
+                                description={video.description}
+                            />
                         ))}
                     </Container>
             }
@@ -36,8 +46,8 @@ function Search() {
                             <span>Shorts</span>
                         </TitleShorts>
                         <ContainerShorts>
-                            {shortSearch.map((short: Array<Object>) => (
-                                <ShortsComponent short={short} />
+                            {shortSearch.map((short: IShorts) => (
+                                <ShortsComponent thumb={short.thumb} title={short.title} views={short.views} />
                             ))}
                         </ContainerShorts>
                     </>

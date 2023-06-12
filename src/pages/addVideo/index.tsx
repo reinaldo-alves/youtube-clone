@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts/userContext';
 import { Container, Button, Title, InputContainer, Content, ImageContainer } from './styles';
 import { VideoContext } from '../../contexts/videoContext';
+import { getCurrentDateTime } from '../../utilities/functions';
 
 function AddVideo(){
     const { newVideo } = useContext(VideoContext);
@@ -11,7 +12,6 @@ function AddVideo(){
     const [description, setDescription] = useState('');
     const [thumb, setThumb] = useState('');
     const [views, setViews] = useState('');
-    const [time, setTime] = useState('');
     const [category, setCategory] = useState('');
     
     return (
@@ -19,8 +19,8 @@ function AddVideo(){
             <div style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'space-between'}} >
                 <Title>Detalhes do vídeo</Title>
                 <Button onClick={() => {
-                    console.log([token, title, description, user.id, thumb, views, time, category, user.nome, user.avatar])
-                    newVideo(token, title, description, user.id, thumb, views, time, category, user.nome, user.avatar)
+                    console.log([token, title, description, user.id, thumb, views, getCurrentDateTime(), category, user.nome, user.avatar, user.color])
+                    newVideo(token, title, description, user.id, thumb, views, getCurrentDateTime(), category, user.nome, user.avatar, user.color)
                 }}>
                     ADICIONAR
                 </Button>
@@ -74,17 +74,6 @@ function AddVideo(){
                             value={views}
                             onChange={(e) => setViews(e.target.value)}
                             placeholder={'Adicione o número de visualizações do seu vídeo'}
-                        />
-                    </InputContainer>
-                    <InputContainer>
-                        <label>Tempo</label>
-                        <textarea
-                            wrap='hard'
-                            maxLength={15}
-                            rows={1}
-                            value={time}
-                            onChange={(e) => setTime(e.target.value)}
-                            placeholder={'Fale há quanto tempo seu vídeo foi gravado'}
                         />
                     </InputContainer>
                     <InputContainer>

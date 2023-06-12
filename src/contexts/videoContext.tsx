@@ -57,8 +57,8 @@ export const VideoStorage = ({ children }: any) => {
         })
     }
 
-    const newVideo = (token: string, title: string, description: string, user_id: string, thumb: string, views: string, time: string, category: string, channel: string, avatar: string) => {
-        api.post('/videos/create-video', {title, description, user_id, thumb, views, time, category, channel, avatar}, {headers:{Authorization: token}}).then(() => {
+    const newVideo = (token: string, title: string, description: string, user_id: string, thumb: string, views: string, time: string, category: string, channel: string, avatar: string, color: string) => {
+        api.post('/videos/create-video', {title, description, user_id, thumb, views, time, category, channel, avatar, color}, {headers:{Authorization: token}}).then(() => {
             alert('Vídeo adicionado com sucesso')
         }).catch((error) => {
             console.log('Não foi possível adicionar o vídeo', error);

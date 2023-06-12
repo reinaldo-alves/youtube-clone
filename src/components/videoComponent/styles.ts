@@ -16,7 +16,7 @@ export const TitleContainer = styled.div`
     margin-top: 8px;
 `;
 
-export const ChannelImage = styled.div<{avatar: string}>`
+export const ChannelImage = styled.div<{avatar: string, color: string}>`
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -24,7 +24,7 @@ export const ChannelImage = styled.div<{avatar: string}>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({ avatar }) => avatar ? 'transparent' : 'red'};
+    background-color: ${({ avatar, color }) => avatar ? 'transparent' : color};
     background-image: url(${({ avatar }) => avatar ? avatar : ''});
     background-size: cover;
     background-position: 50% 50%;

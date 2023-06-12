@@ -25,7 +25,7 @@ import Edit from '../../assets/edit.png'
 import Exit from '../../assets/logout.png'
 import Yvid from '../../assets/yourvideos.png'
 import Shor from '../../assets/Shorts.png'
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { MenuContext } from "../../contexts/menuContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
@@ -33,21 +33,36 @@ import { VideoContext } from "../../contexts/videoContext";
 import { ShortContext } from "../../contexts/shortContext";
 
 function Header() {
-    const { token, login, logOut, initial, user, avatar } = useContext(UserContext);
+    const { token, login, logOut, initial, user, avatar, userColor } = useContext(UserContext);
     const { openMenu, setOpenMenu, dropdown, setDropdown, dropVideo, setDropVideo } = useContext(MenuContext);
     const { search, setSearch, searchVideos } = useContext(VideoContext);
     const { searchShorts } = useContext(ShortContext);
     const navigate = useNavigate();
+    const inputSearch = useRef<HTMLInputElement>(null);
+
     const userMenu = [
         {icon: Edit, title: 'Editar conta', link: () => {}},
         {icon: Yvid, title: 'Seus vídeos', link: () => navigate(`/yourvideos?user_id=${user.id}`)},
         {icon: Shor, title: 'Seus shorts', link: () => navigate(`/yourshorts?user_id=${user.id}`)},
         {icon: Exit, title: 'Sair', link: () => logOut()}
     ]
+
     const videoMenu = [
         {icon: VideoIcon, title: 'Adicionar vídeo', link: () => navigate('/addvideo')},
         {icon: Shor, title: 'Adicionar shorts', link: () => navigate('/addshorts')}
     ]
+
+    const handleSearch = () => {
+        if (search.trim()) {
+            searchVideos(search.trim());
+            searchShorts(search.trim())
+            navigate(`/search?search=${search.trim()}`);
+            setSearch('')
+            if (inputSearch.current) {inputSearch.current.blur()}
+        } else {
+            alert('Digite algo no campo de pesquisa para continuar')
+        }
+    }
 
     return (
         <Container>
@@ -59,24 +74,27 @@ function Header() {
                     style={{ cursor: 'pointer', width: '100px' }}
                     alt=''
                     src={Logo}
+                    onClick={() => navigate('/')}
                 />
             </LogoContainer>
 
             <SearchContainer>
                 <SearchInputContainer>
                     <SearchInput 
+                        ref={inputSearch}
                         type={'text'}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Pesquisar"
+                        onKeyUp={(e) => {
+                            if (e.key === "Enter") {
+                                handleSearch()
+                            }
+                        }}
                     />
                 </SearchInputContainer>
                 <SearchButton 
-                    onClick={() => {
-                        searchVideos(search);
-                        searchShorts(search)
-                        navigate(`/search?search=${search}`);
-                    }}
+                    onClick={handleSearch}
                 >
                     <ButtonIcon alt="" src={SearchIcon} />
                 </SearchButton>
@@ -119,6 +137,7 @@ function Header() {
                         >
                             <UserAvatar 
                                 avatar={avatar}
+                                color={userColor}
                                 style={{cursor:'pointer'}}
                             >
                                 {avatar? '' : initial}
@@ -126,7 +145,7 @@ function Header() {
                         </ButtonContainer>
                         <Dropdown dropdown={dropdown} onClick={() => setDropdown(false)}>
                             <ProfileContainer>
-                                <UserAvatar avatar={avatar}>{avatar? '' : initial}</UserAvatar>
+                                <UserAvatar avatar={avatar} color={userColor}>{avatar? '' : initial}</UserAvatar>
                                 <span>{user.nome}</span>
                             </ProfileContainer>
                             <ul>

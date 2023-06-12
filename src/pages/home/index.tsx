@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import { MenuContext } from '../../contexts/menuContext';
 import VideoComponent from "../../components/videoComponent";
-import { Container, CategoriesContainer, Categories, TitleShorts, ArrowDownButton } from "./styles";
+import { Container, TitleShorts, ArrowDownButton } from "./styles";
 import ShortsComponent from '../../components/shortsComponent';
-import Arrow from '../../assets/arrow-down.png'
-import Shorts from '../../assets/shorts-color.png'
+import Arrow from '../../assets/arrow-down.png';
+import Shorts from '../../assets/shorts-color.png';
 import { VideoContext } from '../../contexts/videoContext';
 import { ShortContext } from '../../contexts/shortContext';
 import { useNavigate } from 'react-router-dom';
-
-const categories = ['Tudo', 'Mixes', 'Submarinos', 'Aviação', 'Forró', 'Ferramentas', 'Música Sertaneja', 'Marcenarias', 'Engenharia Elétrica', 'Voo', 'Copa do Mundo', 'Magníficos']
+import { IShorts, IVideos } from '../../types/types';
+import CategoriesBar from '../../components/categoriesBar';
 
 function Home() { 
     const { openMenu } = useContext(MenuContext);
@@ -19,14 +19,18 @@ function Home() {
     
     return (
         <div style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center'}} >
-            <CategoriesContainer openMenu={ openMenu }>
-                {categories.map((item) => (
-                    <Categories>{item}</Categories>
-                ))}
-            </CategoriesContainer>
+            <CategoriesBar />
             <Container shorts={false} openMenu={ openMenu }>
-                {videos.map((video: Array<Object>) => (
-                    <VideoComponent video={video} />
+                {videos.map((video: IVideos) => (
+                    <VideoComponent 
+                        thumb={video.thumb}
+                        avatar={video.avatar}
+                        title={video.title}
+                        channel={video.channel}
+                        views={video.views}
+                        time={video.time}
+                        color={video.color}
+                    />
                 ))}
             </Container>
             <TitleShorts>
@@ -34,12 +38,9 @@ function Home() {
                 <span>Shorts</span>
             </TitleShorts>
             <Container shorts={true} openMenu={ openMenu }>
-                <ShortsComponent short={shorts[0]} />
-                <ShortsComponent short={shorts[1]} />
-                <ShortsComponent short={shorts[2]} />
-                <ShortsComponent short={shorts[3]} />
-                <ShortsComponent short={shorts[4]} />
-                <ShortsComponent short={shorts[5]} />
+                {shorts.slice(0,6).map((short: IShorts) => (
+                    <ShortsComponent thumb={short.thumb} title={short.title} views={short.views}/>
+                ))}
             </Container>
             <ArrowDownButton onClick={() => navigate('/shorts')}>
                 <img src={Arrow} alt="arrowdown" />
