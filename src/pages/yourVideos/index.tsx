@@ -1,16 +1,32 @@
 import { useContext } from 'react';
 import { MenuContext } from '../../contexts/menuContext';
 import VideoComponent from "../../components/videoComponent";
-import { Container } from "./styles";
+import { Banner, Button, Container, UserAvatar } from "./styles";
 import { VideoContext } from '../../contexts/videoContext';
 import { IVideos } from '../../types/types';
+import { UserContext } from '../../contexts/userContext';
+import Home from '../home';
+import { useNavigate } from 'react-router-dom';
 
 function YourVideos() { 
     const { openMenu } = useContext(MenuContext);
     const { videoUser } = useContext(VideoContext);
+    const { user, login } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    if (!login) return (<Home />)
 
     return (
-        <div style={{width:'100%'}} >
+        <div style={{width:'100%', display: 'flex', flexDirection: 'column'}} >
+            <Banner color={user.color}>
+                <UserAvatar avatar={user.avatar} color={user.color}>
+                    {user.avatar? '' : user.nome[0] || ''}
+                </UserAvatar>
+                <h1>{user.nome}</h1>
+                <Button onClick={() => navigate('/addvideo')}>Adicionar vídeo</Button>
+                <Button onClick={() => navigate('/addshorts')}>Adicionar shorts</Button>
+            </Banner>
             <Container shorts={false} openMenu={ openMenu }>
                 {videoUser.map((video: IVideos) => (
                     <VideoComponent 

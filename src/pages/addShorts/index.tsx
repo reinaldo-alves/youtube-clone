@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts/userContext';
 import { Container, Button, Title, InputContainer, Content, ImageContainer } from './styles';
 import { ShortContext } from '../../contexts/shortContext';
+import { useNavigate } from 'react-router-dom';
 
 function AddShorts(){
     const { newShort } = useContext(ShortContext);
@@ -11,13 +12,18 @@ function AddShorts(){
     const [thumb, setThumb] = useState('');
     const [views, setViews] = useState('');
     
+    const navigate = useNavigate();
+
     return (
         <Container>
             <div style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'space-between'}} >
                 <Title>Detalhes do shorts</Title>
                 <Button onClick={() => {
                     console.log([token, title, user.id, thumb, views])
-                    newShort(token, title, user.id, thumb, views)
+                    if (title.trim()) {
+                        newShort(token, title, user.id, thumb, views)
+                        navigate(`/yourshorts?user_id=${user.id}`);
+                    }
                 }}>
                     ADICIONAR
                 </Button>

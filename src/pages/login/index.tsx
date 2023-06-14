@@ -17,6 +17,17 @@ function Login(){
             navigate('/');
         }
     },[login, token])
+
+    const DoLogin = () => {
+        if (email.trim() && password.trim()) {
+            handleLogin(email, password);
+            if (errorMessage === 'Autenticado com sucesso') {
+                navigate('/');
+            }
+        } else {
+            alert('Preencha todos os dados corretamente')
+        }
+    }
     
     return (
         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
@@ -34,13 +45,7 @@ function Login(){
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={'E-mail'}
                     onKeyUp={(e) => {
-                        if (e.key === 'Enter') {
-                            if (email.trim() && password.trim()) {
-                                handleLogin(email, password);
-                            } else {
-                                alert('Preencha todos os dados corretamente')
-                            }
-                        }
+                        if (e.key === 'Enter') {DoLogin()}
                     }}
                 />
                 <LoginInput 
@@ -49,27 +54,13 @@ function Login(){
                     onChange={(p) => setPassword(p.target.value)}
                     placeholder={'Senha'}
                     onKeyUp={(e) => {
-                        if (e.key === 'Enter') {
-                            if (email.trim() && password.trim()) {
-                                handleLogin(email, password);
-                            } else {
-                                alert('Preencha todos os dados corretamente')
-                            }
-                        }
+                        if (e.key === 'Enter') {DoLogin()}
                     }}
                 />
                 <ShowPasswordHandler onClick={() => setShowPassword(!showPassword)}>
                     <span>{showPassword? 'Ocultar senha' : 'Mostrar senha'}</span>
                 </ShowPasswordHandler>
-                <LoginButton onClick={() => {
-                    if (email.trim() && password.trim()) {
-                        handleLogin(email, password);
-                    } else {
-                        alert('Preencha todos os dados corretamente')
-                    }
-                }}>
-                    Login
-                </LoginButton>
+                <LoginButton onClick={() => {DoLogin()}}>Login</LoginButton>
                 <span style={{color:'red', minHeight:'1.5rem'}}>
                     {errorMessage}
                 </span>

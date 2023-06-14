@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts/userContext';
 import { Container, Button, Title, InputContainer, Content, ImageContainer } from './styles';
 import { VideoContext } from '../../contexts/videoContext';
-import { getCurrentDateTime } from '../../utilities/functions';
+import { useNavigate } from 'react-router-dom';
 
 function AddVideo(){
     const { newVideo } = useContext(VideoContext);
@@ -13,14 +13,21 @@ function AddVideo(){
     const [thumb, setThumb] = useState('');
     const [views, setViews] = useState('');
     const [category, setCategory] = useState('');
+
+    const navigate = useNavigate();
+    
+    const now = new Date();
     
     return (
         <Container>
             <div style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'space-between'}} >
                 <Title>Detalhes do vídeo</Title>
                 <Button onClick={() => {
-                    console.log([token, title, description, user.id, thumb, views, getCurrentDateTime(), category, user.nome, user.avatar, user.color])
-                    newVideo(token, title, description, user.id, thumb, views, getCurrentDateTime(), category, user.nome, user.avatar, user.color)
+                    console.log([token, title, description, user.id, thumb, views, now, category, user.nome, user.avatar, user.color])
+                    if (title.trim()) {
+                        newVideo(token, title, description, user.id, thumb, views, now, category, user.nome, user.avatar, user.color)
+                        navigate(`/yourvideos?user_id=${user.id}`);
+                    }
                 }}>
                     ADICIONAR
                 </Button>
@@ -90,7 +97,7 @@ function AddVideo(){
                             <option value="Jogos">Jogos</option>
                             <option value="Notícias">Notícias</option>
                             <option value="Esportes">Esportes</option>
-                            <option value={'Aprender'}>Aprender</option>
+                            <option value="Aprender">Aprender</option>
                         </select>
                     </InputContainer>
                 </div>

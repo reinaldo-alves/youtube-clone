@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts/userContext';
 import { Container, LoginButton, LoginInput, ShowPasswordHandler, Title } from './styles';
 import Logo from '../../assets/YouTube-Logo.png';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp(){
     const { newUser } = useContext(UserContext);
@@ -13,12 +14,15 @@ function SignUp(){
     const [password2, setPassword2] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
+    const navigate = useNavigate();
+
     function handleNewUser() {
         if (name.trim() && email.trim() && password1.trim() && password2.trim()) {
             if (/\S+@\S+\.\S+/.test(email)) {
                 if(password1 === password2) {
                     const password = password1
                     newUser(name, email, password, avatar);
+                    navigate('/login');
                 } else {
                     alert('Senhas não são iguais. Tente novamente!')
                 }

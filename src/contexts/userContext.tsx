@@ -50,6 +50,7 @@ export const UserStorage = ({ children }: any) => {
             setErrorMessage(data.message);
         }).catch((error) => {
             console.log('Não foi possível fazer o login', error);
+            alert('Não foi possível fazer o login. Tente novamente');
         })
     }
 
@@ -58,7 +59,12 @@ export const UserStorage = ({ children }: any) => {
         api.post('/user/sign-up', {name, email, password, avatar, color}).then(() => {
             alert('Usuário cadastrado com sucesso')
         }).catch((error) => {
-            console.log('Não foi possível fazer o cadastro', error);
+            if (error.response.status === 409) {
+                alert('Já existe uma conta com este email. Faça login ou escolha outro email')
+            } else {
+                console.log('Não foi possível fazer o cadastro', error);
+                alert('Não foi possível realizar o cadastro. Tente novamente')
+            }
         })
     }
 
