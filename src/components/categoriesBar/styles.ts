@@ -6,9 +6,8 @@ export const Container = styled.div`
     grid-template-columns: auto 1fr auto;
 `;
 
-export const CategoriesContainer = styled.div<{ openMenu: boolean }>`
+export const CategoriesContainer = styled.div`
     width: 100%;
-    padding: ${({ openMenu }) => openMenu? '0' : '0 24px'};
     display: flex;
     box-sizing: border-box;
     gap: 12px;

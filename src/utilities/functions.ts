@@ -1,9 +1,88 @@
 import moment from "moment";
+import { IVideos, IVideosAPI, IVideosSearch } from "../types/types";
+import axios from "axios";
 
-export function selectRandom(array:Array<any>) {
-    const index = Math.floor(Math.random() * array.length);
-    const random = array[index];
+const colors = ['red', 'blue', 'pink', 'green', 'gray', 'orange', 'brown'];
+
+export function selectRandomColors() {
+    const index = Math.floor(Math.random() * colors.length);
+    const random = colors[index];
     return random
+}
+
+export async function loadVideosAPI(url: string) {
+    try {
+        const response = await axios.get(url)
+        return response.data.items
+    } catch(error) {
+        console.log(error)
+        alert('Erro ao carregar os vídeos da API do Youtube');
+        return [];
+    }
+}
+
+function convertVideos(videos: Array<IVideosAPI>) {
+    return videos.map((item: IVideosAPI, index: number) => ({
+        video_id: item.id,
+        thumb: item.snippet.thumbnails.maxres?.url || item.snippet.thumbnails.high?.url,
+        avatar: '',
+        title: item.snippet.title,
+        channel: item.snippet.channelTitle,
+        views: item.statistics.viewCount,
+        time: item.snippet.publishedAt,
+        color: selectRandomColors(),
+        category: item.snippet.categoryId,
+        description: item.snippet.description
+    }))
+}
+
+function convertSearchVideos(videos: Array<IVideosSearch>) {
+    return videos.map((item: IVideosSearch, index: number) => ({
+        video_id: item.id.videoID,
+        thumb: item.snippet.thumbnails.high?.url,
+        avatar: '',
+        title: item.snippet.title,
+        channel: item.snippet.channelTitle,
+        views: 'Sem',
+        time: item.snippet.publishTime,
+        color: selectRandomColors(),
+        category: '',
+        description: item.snippet.description
+    }))
+}
+
+export function getAllVideos(videosDB: Array<IVideos>, videosAPI: Array<IVideosAPI>) {
+    const convertedVideosAPI = convertVideos(videosAPI);
+    const vid = [...videosDB, ...convertedVideosAPI]
+    const tam = () => {
+        if (vid.length >= 60) {
+            return 60
+        } else {
+            return vid.length
+        }
+    }
+    for (let i = vid.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [vid[i], vid[j]] = [vid[j], vid[i]];
+    }
+    return vid.slice(0, tam())
+}
+
+export function getAllSearchVideos(videosDB: Array<IVideos>, videosAPI: Array<IVideosSearch>) {
+    const convertedVideosAPI = convertSearchVideos(videosAPI);
+    const vid = [...videosDB, ...convertedVideosAPI]
+    const tam = () => {
+        if (vid.length >= 50) {
+            return 50
+        } else {
+            return vid.length
+        }
+    }
+    for (let i = vid.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [vid[i], vid[j]] = [vid[j], vid[i]];
+    }
+    return vid.slice(0, tam())
 }
 
 export function convertViews(views: string): string {

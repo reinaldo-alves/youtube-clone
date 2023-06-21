@@ -31,11 +31,12 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 import { VideoContext } from "../../contexts/videoContext";
 import { ShortContext } from "../../contexts/shortContext";
+import { loadVideosAPI } from "../../utilities/functions";
 
 function Header() {
     const { token, login, logOut, initial, user, avatar, userColor } = useContext(UserContext);
     const { openMenu, setOpenMenu, dropdown, setDropdown, dropVideo, setDropVideo } = useContext(MenuContext);
-    const { search, setSearch, searchVideos } = useContext(VideoContext);
+    const { search, setSearch, searchVideos, setVideoSearchAPI } = useContext(VideoContext);
     const { searchShorts } = useContext(ShortContext);
     const navigate = useNavigate();
     const inputSearch = useRef<HTMLInputElement>(null);
@@ -52,8 +53,15 @@ function Header() {
         {icon: Shor, title: 'Adicionar shorts', link: () => navigate('/addshorts')}
     ]
 
+    const fetchData = async () => {
+        const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search.trim()}&maxResults=60&key=AIzaSyDeTcmAPDBl7cmV-R4OeGGn8xS5Q_FaifE`
+        const apiVideos = await loadVideosAPI(url);
+        setVideoSearchAPI(apiVideos);
+    };
+
     const handleSearch = () => {
         if (search.trim()) {
+            fetchData();
             searchVideos(search.trim());
             searchShorts(search.trim())
             navigate(`/search?search=${search.trim()}`);

@@ -37,6 +37,7 @@ function YourVideos() {
                         views={video.views}
                         time={video.time}
                         color={video.color}
+                        key={video.video_id}
                     />
                 ))}
             </Container>

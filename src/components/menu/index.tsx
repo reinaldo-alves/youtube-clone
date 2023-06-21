@@ -56,15 +56,15 @@ const subscriptionMenu = [
 ]
 
 const exploreMenu = [
-    {icon: Tren, title: 'Em alta', vis: false, link: '/tredings', cat: ''},
-    {icon: Shop, title: 'Shopping', vis: false, link: '/categories/Shopping', cat: 'Shopping'},
-    {icon: Musi, title: 'Música', vis: false, link: '/categories/Música', cat: 'Música'},
-    {icon: Movi, title: 'Filmes', vis: false, link: '/categories/Filmes', cat: 'Filmes'},
-    {icon: Live, title: 'Ao vivo', vis: false, link: '/categories/Ao Vivo', cat: 'Ao Vivo'},
-    {icon: Game, title: 'Jogos', vis: false, link: '/categories/Jogos', cat: 'Jogos'},
-    {icon: News, title: 'Notícias', vis: false, link: '/categories/Notícias', cat: 'Notícias'},
-    {icon: Spor, title: 'Esportes', vis: false, link: '/categories/Esportes', cat: 'Esportes'},
-    {icon: Lear, title: 'Aprender', vis: false, link: '/categories/Aprender', cat: 'Aprender'}
+    {icon: Tren, title: 'Em alta', vis: false, link: '/categories/0', cat: {id: 0, name: 'Tudo'}},
+    {icon: Shop, title: 'Shopping', vis: false, link: '/categories/22', cat: {id: 22, name: 'Pessoas e Blogs'}},
+    {icon: Musi, title: 'Música', vis: false, link: '/categories/10', cat: {id: 10, name: 'Música'}},
+    {icon: Movi, title: 'Filmes', vis: false, link: '/categories/24', cat: {id: 24, name: 'Entretenimento'}},
+    {icon: Live, title: 'Ao vivo', vis: false, link: '/categories/10', cat: {id: 10, name: 'Música'}},
+    {icon: Game, title: 'Jogos', vis: false, link: '/categories/20', cat: {id: 20, name: 'Jogos'}},
+    {icon: News, title: 'Notícias', vis: false, link: '/categories/25', cat: {id: 25, name: 'Notícias e Política'}},
+    {icon: Spor, title: 'Esportes', vis: false, link: '/categories/17', cat: {id: 17, name: 'Esportes'}},
+    {icon: Lear, title: 'Aprender', vis: false, link: '/categories/28', cat: {id: 28, name: 'Ciência e Tecnologia'}}
 ]
 
 const plusMenu = [
@@ -111,13 +111,14 @@ function Menu() {
 
     return (
         <Container openMenu={ openMenu }>
-            {Menus.map((menu) => (
-                <Section openMenu={ openMenu }>
+            {Menus.map((menu, index) => (
+                <Section key={index} openMenu={ openMenu }>
                     <MenuTitle openMenu={ openMenu } title={menu.title}>
                         {menu.title}
                     </MenuTitle>
-                    {menu.body.map((item) => (
+                    {menu.body.map((item, index) => (
                         <MenuItem 
+                            key={index}
                             openMenu={ openMenu }
                             vis={item.vis}
                             onClick={() => {
@@ -132,10 +133,10 @@ function Menu() {
                 </Section>
             ))}
             <div style={{ padding: '10px' }}>
-                {Links.map((item) => (
-                    <LinkContainer openMenu={ openMenu }>
-                        {item.map((link) => (
-                            <a href="#">{link}</a>
+                {Links.map((item, index) => (
+                    <LinkContainer key={index} openMenu={ openMenu }>
+                        {item.map((link, index) => (
+                            <a key={index} href="#">{link}</a>
                         ))}
                     </LinkContainer>
                 ))}

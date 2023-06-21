@@ -11,8 +11,9 @@ export const Container = styled.div<{short: Number}>`
 `;
 
 export const TitleShorts = styled.div<{video: Number}>`
+    box-sizing: border-box;
     width: calc(100% - 48px);
-    padding: ${({ video }) => video===0? '0 0 6px 0' : '30px 0 6px 0px'};
+    padding-top: ${({ video }) => video===0? '0' : '30px'};
     display: flex;
     align-items: center;
 
@@ -35,7 +36,7 @@ export const ContainerShorts = styled.div`
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 50px 20px;
-    padding: 24px;
+    padding: 4px 24px 24px 24px;
 `;
 
 export const TextNone = styled.div`

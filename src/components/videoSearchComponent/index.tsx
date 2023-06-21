@@ -1,14 +1,22 @@
 import { IVideos } from '../../types/types';
-import { convertViews } from '../../utilities/functions';
+import { convertTime, convertViews } from '../../utilities/functions';
 import { ChannelImage, Container, ImageBanner, TextCard, TextContainer, Title, TitleContainer } from './styles';
 
 function VideoSearchComponent(video: IVideos) { 
+    function handleViews(views: string) {
+        if (views === 'Sem') {
+            return views
+        } else {
+            return convertViews(views)
+        }
+    }
+    
     return (
         <Container>
             <ImageBanner src={video.thumb} />
             <TitleContainer>
                 <Title>{video.title}</Title>
-                <TextCard>{convertViews(video.views)} visualizações - há {video.time}</TextCard>
+                <TextCard>{handleViews(video.views)} visualizações - {convertTime(video.time)}</TextCard>
                 <TextContainer>
                     <ChannelImage avatar={video.avatar} color={video.color}>
                         {video.avatar? '' : video.channel.charAt(0)}

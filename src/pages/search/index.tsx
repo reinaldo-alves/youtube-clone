@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Container, ContainerShorts, TextNone, TitleShorts } from "./styles";
 import { VideoContext } from '../../contexts/videoContext';
 import VideoSearchComponent from '../../components/videoSearchComponent';
@@ -6,21 +6,28 @@ import { ShortContext } from '../../contexts/shortContext';
 import Shorts from '../../assets/shorts-color.png'
 import ShortsComponent from '../../components/shortsComponent';
 import { IShorts, IVideos } from '../../types/types';
+import { getAllSearchVideos } from '../../utilities/functions';
 
 function Search() { 
-    const { videoSearch } = useContext(VideoContext);
+    const { videoSearch, videoSearchAPI } = useContext(VideoContext);
     const { shortSearch } = useContext(ShortContext);
 
+    const [allVideoSearch, setAllVideoSearch] = useState([] as Array<IVideos>)
+
+    useEffect(() => {
+        setAllVideoSearch(getAllSearchVideos(videoSearch, videoSearchAPI));
+    }, [videoSearch, videoSearchAPI])
+
     return (
-        <div style={{width:'100%', display:'flex', flexDirection:'column', padding:'24px'}} >
-            {videoSearch.length===0 && shortSearch.length===0?
+        <div style={{width:'100%', display:'flex', flexDirection:'column', gap:'20px', padding:'24px'}} >
+            {allVideoSearch.length===0 && shortSearch.length===0?
                 <TextNone>Nenhum vídeo ou shorts encontrado</TextNone>
             :
-                videoSearch.length===0? 
+                allVideoSearch.length===0? 
                     ''
                 :
                     <Container short={shortSearch.length}>
-                        {videoSearch.map((video: IVideos) => (
+                        {allVideoSearch.map((video: IVideos) => (
                             <VideoSearchComponent 
                                 thumb={video.thumb}
                                 title={video.title}
@@ -30,11 +37,12 @@ function Search() {
                                 color={video.color}
                                 channel={video.channel}
                                 description={video.description}
+                                key={video.video_id}
                             />
                         ))}
                     </Container>
             }
-            {videoSearch.length===0 && shortSearch.length===0?
+            {allVideoSearch.length===0 && shortSearch.length===0?
                 ''
             :
                 shortSearch.length===0? 

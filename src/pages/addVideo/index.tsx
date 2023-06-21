@@ -3,9 +3,10 @@ import { UserContext } from '../../contexts/userContext';
 import { Container, Button, Title, InputContainer, Content, ImageContainer } from './styles';
 import { VideoContext } from '../../contexts/videoContext';
 import { useNavigate } from 'react-router-dom';
+import { ICategories } from '../../types/types';
 
 function AddVideo(){
-    const { newVideo } = useContext(VideoContext);
+    const { newVideo, categories } = useContext(VideoContext);
     const { user, token } = useContext(UserContext);
     
     const [title, setTitle] = useState('');
@@ -15,7 +16,7 @@ function AddVideo(){
     const [category, setCategory] = useState('');
 
     const navigate = useNavigate();
-    
+   
     const now = new Date();
     
     return (
@@ -90,14 +91,23 @@ function AddVideo(){
                             onChange={(e) => setCategory(e.target.value)}
                         >
                             <option value="">Selecione a categoria do seu vídeo</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Música">Música</option>
-                            <option value="Filmes">Filmes</option>
-                            <option value="Ao vivo">Ao vivo</option>
-                            <option value="Jogos">Jogos</option>
-                            <option value="Notícias">Notícias</option>
-                            <option value="Esportes">Esportes</option>
-                            <option value="Aprender">Aprender</option>
+                            {categories
+                                .slice(1)
+                                .sort((a: ICategories, b: ICategories) => {
+                                    const nameA = a.name.toUpperCase();
+                                    const nameB = b.name.toUpperCase();
+                                  
+                                    if (nameA < nameB) {
+                                      return -1;
+                                    }
+                                    if (nameA > nameB) {
+                                      return 1;
+                                    }
+                                    return 0;
+                                  })
+                                .map((item: ICategories) => (
+                                    <option value={item.id}>{item.name}</option>    
+                            ))}
                         </select>
                     </InputContainer>
                 </div>

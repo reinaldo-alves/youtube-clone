@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import api from '../api';
 import { MenuContext } from './menuContext';
-import { selectRandom } from '../utilities/functions';
+import { selectRandomColors } from '../utilities/functions';
 
 export const UserContext = createContext({} as any);
 
@@ -14,8 +14,6 @@ export const UserStorage = ({ children }: any) => {
     const [userColor, setUserColor] = useState('');
     const [errorMessage, setErrorMessage] = useState(' ');
     const { setDropdown } = useContext(MenuContext);
-
-    const colors = ['red', 'blue', 'pink', 'green', 'gray', 'orange', 'brown']
 
     const getUser = (token: string) => {
         api.get('/user/get-user', {headers:{Authorization: token}}).then(({ data }) => {
@@ -55,7 +53,7 @@ export const UserStorage = ({ children }: any) => {
     }
 
     const newUser = (name: string, email: string, password: string, avatar: string) => {
-        const color = selectRandom(colors);
+        const color = selectRandomColors();
         api.post('/user/sign-up', {name, email, password, avatar, color}).then(() => {
             alert('Usuário cadastrado com sucesso')
         }).catch((error) => {
