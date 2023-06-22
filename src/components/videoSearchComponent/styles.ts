@@ -5,6 +5,11 @@ export const Container = styled.div`
     display: flex;
     align-items: flex-start;
     margin-bottom: 24px;
+
+    @media (max-width: 720px) {
+        flex-direction: column;
+        max-width: 360px;
+    }
 `;
 
 export const ImageBanner = styled.img`
@@ -12,6 +17,10 @@ export const ImageBanner = styled.img`
     max-width: 360px;
     aspect-ratio: 16 / 9;
     border-radius: 12px;
+
+    @media (max-width: 720px) {
+        width: 100%;
+    }
 `;
 
 export const TitleContainer = styled.div`
@@ -19,7 +28,11 @@ export const TitleContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-left: 20px;
+    margin: 0 0 0 20px;
+
+    @media (max-width: 720px) {
+        margin: 5px 0 0 0;
+    }
 `;
 
 export const ChannelImage = styled.div<{avatar: string, color: string}>`
@@ -64,4 +77,9 @@ export const TextCard = styled.span`
     line-height: 18px;
     font-weight: 400;
     color: #8c8c8c;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;

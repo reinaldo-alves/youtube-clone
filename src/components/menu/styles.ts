@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div<{ openMenu: boolean }>`
+export const Container = styled.div<{ openMenu: boolean, showMenu: boolean }>`
     width: ${({ openMenu }) => openMenu? '300px' : '100px'};
     min-width: ${({ openMenu }) => openMenu? '250px' : '90px'};
     height: calc(100vh - 55px);
@@ -9,9 +9,24 @@ export const Container = styled.div<{ openMenu: boolean }>`
     display: flex;
     align-items: center;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: hidden;
     position: sticky;
     top: 55px;
+
+    :hover {
+        overflow-y: ${({ openMenu }) => openMenu? 'scroll' : 'hidden'};
+    }
+
+    @media (max-width: 920px) {
+        width: 300px;
+        min-width: '250px';
+        position: fixed;
+        left: ${({ showMenu }) => showMenu? '0' : '-310px'};
+        background-color: #fff;
+        z-index: 4;
+        box-shadow: 0 1px 3px 0;
+        overflow-y: scroll;
+    }
 `;
 
 export const Section = styled.div<{ openMenu: boolean }>`
@@ -75,4 +90,15 @@ export const LinkContainer = styled.div<{ openMenu: boolean }>`
         margin-right: 8px;
         white-space: nowrap;
     }
+`;
+
+export const Overlay = styled.div<{ showMenu: boolean }>`
+    display: ${({ showMenu }) => showMenu ? 'block' : 'none'};
+    background-color: transparent;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
 `;

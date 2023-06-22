@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 100%;
+    width: 300px;
+    height: auto;
+    flex-grow: 1;
 `;
 
 export const ImageBanner = styled.img`

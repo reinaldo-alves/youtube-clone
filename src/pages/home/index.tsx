@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '../../contexts/menuContext';
 import VideoComponent from "../../components/videoComponent";
-import { Container, TitleShorts, ArrowDownButton } from "./styles";
+import { Container, TitleShorts, ArrowDownButton, ShortsContainer } from "./styles";
 import ShortsComponent from '../../components/shortsComponent';
 import Arrow from '../../assets/arrow-down.png';
 import Shorts from '../../assets/shorts-color.png';
@@ -37,9 +37,9 @@ function Home() {
     }, [videos.length, videosAPI.length])
 
     return (
-        <div style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center'}} >
+        <div style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}} >
             <CategoriesBar />
-            <Container shorts={false} openMenu={ openMenu }>
+            <Container>
                 {allVideos.map((video: IVideos) => (
                     <VideoComponent 
                         thumb={video.thumb}
@@ -57,11 +57,11 @@ function Home() {
                 <img src={Shorts} alt="shorts"/>
                 <span>Shorts</span>
             </TitleShorts>
-            <Container shorts={true} openMenu={ openMenu }>
+            <ShortsContainer openMenu={openMenu}>
                 {shorts.slice(0,6).map((short: IShorts, index: number) => (
                     <ShortsComponent key={index} thumb={short.thumb} title={short.title} views={short.views}/>
                 ))}
-            </Container>
+            </ShortsContainer>
             <ArrowDownButton onClick={() => navigate('/shorts')}>
                 <img src={Arrow} alt="arrowdown" />
             </ArrowDownButton>

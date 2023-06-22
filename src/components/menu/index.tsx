@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { MenuContext } from "../../contexts/menuContext";
-import { Container, MenuItem, ButtonIcon, Section, MenuTitle, LinkContainer } from "./styles";
+import { Container, MenuItem, ButtonIcon, Section, MenuTitle, LinkContainer, Overlay } from "./styles";
 import { useNavigate } from 'react-router-dom';
 import Home from '../../assets/home.png'
 import Shor from '../../assets/Shorts.png'
@@ -87,7 +87,7 @@ const Links = [
 ] 
 
 function Menu() {
-    const { openMenu } = useContext(MenuContext);
+    const { openMenu, showMenu, setShowMenu } = useContext(MenuContext);
     const { user } = useContext(UserContext);
     const { setCategory } = useContext(VideoContext);
     const navigate = useNavigate();
@@ -110,41 +110,44 @@ function Menu() {
     ]
 
     return (
-        <Container openMenu={ openMenu }>
-            {Menus.map((menu, index) => (
-                <Section key={index} openMenu={ openMenu }>
-                    <MenuTitle openMenu={ openMenu } title={menu.title}>
-                        {menu.title}
-                    </MenuTitle>
-                    {menu.body.map((item, index) => (
-                        <MenuItem 
-                            key={index}
-                            openMenu={ openMenu }
-                            vis={item.vis}
-                            onClick={() => {
-                                navigate(item.link)
-                                setCategory(item.cat)
-                            }}
-                        >
-                            <ButtonIcon alt="" src={item.icon} />
-                            <span>{item.title}</span>
-                        </MenuItem>
-                    ))}
-                </Section>
-            ))}
-            <div style={{ padding: '10px' }}>
-                {Links.map((item, index) => (
-                    <LinkContainer key={index} openMenu={ openMenu }>
-                        {item.map((link, index) => (
-                            <a key={index} href="#">{link}</a>
+        <>
+            <Container openMenu={ openMenu } showMenu={ showMenu } onClick={() => setShowMenu(false)}>
+                {Menus.map((menu, index) => (
+                    <Section key={index} openMenu={ openMenu }>
+                        <MenuTitle openMenu={ openMenu } title={menu.title}>
+                            {menu.title}
+                        </MenuTitle>
+                        {menu.body.map((item, index) => (
+                            <MenuItem 
+                                key={index}
+                                openMenu={ openMenu }
+                                vis={item.vis}
+                                onClick={() => {
+                                    navigate(item.link)
+                                    setCategory(item.cat)
+                                }}
+                            >
+                                <ButtonIcon alt="" src={item.icon} />
+                                <span>{item.title}</span>
+                            </MenuItem>
                         ))}
-                    </LinkContainer>
+                    </Section>
                 ))}
-                <LinkContainer openMenu={ openMenu }>
-                    © 2023 Google LLC
-                </LinkContainer>
-            </div>
-        </Container>
+                <div style={{ padding: '10px' }}>
+                    {Links.map((item, index) => (
+                        <LinkContainer key={index} openMenu={ openMenu }>
+                            {item.map((link, index) => (
+                                <a key={index} href="#">{link}</a>
+                            ))}
+                        </LinkContainer>
+                    ))}
+                    <LinkContainer openMenu={ openMenu }>
+                        © 2023 Google LLC
+                    </LinkContainer>
+                </div>
+            </Container>
+            <Overlay showMenu={showMenu} onClick={() => setShowMenu(false)}/>
+        </>
     )
 }
 

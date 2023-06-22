@@ -2,8 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
+    max-width: 1460px;
     display: grid;
     grid-template-columns: auto 1fr auto;
+    position: sticky;
+    top: 55px;
+    background-color: #fff;
 `;
 
 export const CategoriesContainer = styled.div`

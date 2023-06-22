@@ -11,6 +11,7 @@ export const Container = styled.header`
     justify-content: space-between;
     position: sticky;
     top: 0;
+    z-index: 2;
 `;
 
 export const LogoContainer = styled.div`
@@ -37,8 +38,8 @@ export const ButtonIcon = styled.img`
     width: 20px;
 `;
 
-export const SearchContainer = styled.div`
-    display: flex;
+export const SearchContainer = styled.div<{show: boolean}>`
+    display: ${({ show }) => show ? 'flex' : 'none'};
 `;
 
 export const SearchInputContainer = styled.div`
@@ -52,6 +53,10 @@ export const SearchInputContainer = styled.div`
 
     :focus-within {
         border-color: #065fd4
+    }
+
+    @media (max-width: 1000px) {
+        width: 300px;
     }
 `;
 
@@ -84,6 +89,10 @@ export const HeaderButton = styled.div<{ login: boolean, token: string }>`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 1075px) {
+        width: auto;
+    }
 `;
 
 export const LoginButton = styled.div`
@@ -122,10 +131,10 @@ export const UserAvatar = styled.div<{ avatar: string, color: string }>`
     font-weight: 500;
 `;
 
-export const Dropdown = styled.nav<{ dropdown: boolean }>`
+export const Dropdown = styled.nav<{ dropdown: boolean, right?: string }>`
     position: absolute;
     top: 40px;
-    left: -132px;
+    right: ${({ right }) => right ? right : '0'};
     background-color: #fff;
     opacity: ${({ dropdown }) => dropdown ? '1' : '0'};
     visibility: ${({ dropdown }) => dropdown ? 'visible' : 'hidden'};

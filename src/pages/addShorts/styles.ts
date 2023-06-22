@@ -125,4 +125,5 @@ export const ImageContainer = styled.div<{thumb: string}>`
     border-radius: 4px;
     border: ${({ thumb }) => thumb ? 'none' : '1px solid #d3d3d3'};
     color: #606060;
+    text-align: center;
 `;

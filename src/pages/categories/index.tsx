@@ -35,7 +35,7 @@ function Categories() {
     return (
         <div style={{width:'100%'}} >
             <CategoriesBar />
-            <Container shorts={false} openMenu={ openMenu }>
+            <Container>
                 {allCatVideos.map((video: IVideos) => (
                     <VideoComponent 
                         thumb={video.thumb}

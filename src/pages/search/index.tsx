@@ -7,10 +7,12 @@ import Shorts from '../../assets/shorts-color.png'
 import ShortsComponent from '../../components/shortsComponent';
 import { IShorts, IVideos } from '../../types/types';
 import { getAllSearchVideos } from '../../utilities/functions';
+import { MenuContext } from '../../contexts/menuContext';
 
 function Search() { 
     const { videoSearch, videoSearchAPI } = useContext(VideoContext);
     const { shortSearch } = useContext(ShortContext);
+    const { openMenu } = useContext(MenuContext)
 
     const [allVideoSearch, setAllVideoSearch] = useState([] as Array<IVideos>)
 
@@ -53,7 +55,7 @@ function Search() {
                             <img src={Shorts} alt="shorts"/>
                             <span>Shorts</span>
                         </TitleShorts>
-                        <ContainerShorts>
+                        <ContainerShorts openMenu={ openMenu }>
                             {shortSearch.map((short: IShorts) => (
                                 <ShortsComponent thumb={short.thumb} title={short.title} views={short.views} />
                             ))}

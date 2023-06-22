@@ -35,7 +35,7 @@ import { loadVideosAPI } from "../../utilities/functions";
 
 function Header() {
     const { token, login, logOut, initial, user, avatar, userColor } = useContext(UserContext);
-    const { openMenu, setOpenMenu, dropdown, setDropdown, dropVideo, setDropVideo } = useContext(MenuContext);
+    const { openMenu, setOpenMenu, showMenu, setShowMenu, dropdown, setDropdown, dropVideo, setDropVideo, dropSearch, setDropSearch } = useContext(MenuContext);
     const { search, setSearch, searchVideos, setVideoSearchAPI } = useContext(VideoContext);
     const { searchShorts } = useContext(ShortContext);
     const navigate = useNavigate();
@@ -75,7 +75,15 @@ function Header() {
     return (
         <Container>
             <LogoContainer>
-                <ButtonContainer onClick={() => setOpenMenu(!openMenu)} margin='0 10px 0 0'>
+                <ButtonContainer onClick={() => {
+                    if (window.innerWidth > 920) {
+                        setOpenMenu(!openMenu)
+                        setShowMenu(false)
+                    } else {
+                        setOpenMenu(true)
+                        setShowMenu(!showMenu)
+                    }
+                }} margin='0 10px 0 0'>
                     <ButtonIcon alt="" src={HamburgerIcon} />
                 </ButtonContainer>
                 <img 
@@ -86,7 +94,7 @@ function Header() {
                 />
             </LogoContainer>
 
-            <SearchContainer>
+            <SearchContainer  show={window.innerWidth > 920}>
                 <SearchInputContainer>
                     <SearchInput 
                         ref={inputSearch}
@@ -112,6 +120,49 @@ function Header() {
             </SearchContainer>
 
             <HeaderButton login={login} token={token}>
+                <div style={{position: 'relative', display: `${window.innerWidth > 920? 'none' : 'flex'}`}}>
+                    <ButtonContainer 
+                        margin={`${login? '0 0 0 10px' : '0 10px 0 0'}`}
+                        onClick={() => setDropSearch(!dropSearch)}
+                    >
+                        <ButtonIcon alt="" src={SearchIcon}/>
+                    </ButtonContainer>
+                    <Dropdown
+                        dropdown={dropSearch}
+                        right={`${login ? "-150px" : "-110px"}`}
+                        style={{padding: '10px', width: `${window.innerWidth > 500? '400px' : '280px'}`}}
+                    >
+                        <SearchContainer  show={true}>
+                            <SearchInputContainer>
+                                <SearchInput 
+                                    ref={inputSearch}
+                                    type={'text'}
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    placeholder="Pesquisar"
+                                    onKeyUp={(e) => {
+                                        if (e.key === "Enter") {
+                                            handleSearch()
+                                            setDropSearch(false)
+                                        }
+                                    }}
+                                />
+                            </SearchInputContainer>
+                            <SearchButton 
+                                onClick={() => {
+                                    handleSearch()
+                                    setDropSearch(false)
+                                }}
+                            >
+                                <ButtonIcon alt="" src={SearchIcon} />
+                            </SearchButton>
+                            <ButtonContainer margin='0 0 0 10px'>
+                                <ButtonIcon alt="" src={MicIcon} />
+                            </ButtonContainer>
+                        </SearchContainer>
+                    </Dropdown>
+                    <Overlay dropdown={dropSearch} onClick={() => setDropSearch(false)}/>
+                </div>
                 {login && token? 
                 <>
                     <div style={{position:'relative'}}>
@@ -123,8 +174,8 @@ function Header() {
                         </ButtonContainer>
                         <Dropdown dropdown={dropVideo} onClick={() => setDropVideo(false)}>
                             <ul>
-                                {videoMenu.map((item) => (
-                                    <li onClick={item.link}>
+                                {videoMenu.map((item, index) => (
+                                    <li key={index} onClick={item.link}>
                                         <MenuItem>
                                             <img alt="" src={item.icon} />
                                             <span>{item.title}</span>
@@ -157,8 +208,8 @@ function Header() {
                                 <span>{user.nome}</span>
                             </ProfileContainer>
                             <ul>
-                                {userMenu.map((item) => (
-                                    <li onClick={item.link}>
+                                {userMenu.map((item, index) => (
+                                    <li key={index} onClick={item.link}>
                                         <MenuItem>
                                             <img alt="" src={item.icon} />
                                             <span>{item.title}</span>

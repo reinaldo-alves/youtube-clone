@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { MenuContext } from '../../contexts/menuContext';
 import VideoComponent from "../../components/videoComponent";
-import { Banner, Button, Container, UserAvatar } from "./styles";
+import { Banner, Button, ChannelTitle, Container, UserAvatar } from "./styles";
 import { VideoContext } from '../../contexts/videoContext';
 import { IVideos } from '../../types/types';
 import { UserContext } from '../../contexts/userContext';
@@ -20,14 +20,18 @@ function YourVideos() {
     return (
         <div style={{width:'100%', display: 'flex', flexDirection: 'column'}} >
             <Banner color={user.color}>
-                <UserAvatar avatar={user.avatar} color={user.color}>
-                    {user.avatar? '' : user.nome[0] || ''}
-                </UserAvatar>
-                <h1>{user.nome}</h1>
-                <Button onClick={() => navigate('/addvideo')}>Adicionar vídeo</Button>
-                <Button onClick={() => navigate('/addshorts')}>Adicionar shorts</Button>
+                <div style={{display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'center'}}>    
+                    <UserAvatar avatar={user.avatar} color={user.color}>
+                        {user.avatar? '' : user.nome[0] || ''}
+                    </UserAvatar>
+                    <ChannelTitle>{user.nome}</ChannelTitle>
+                </div>
+                <div style={{display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'center'}}>
+                    <Button onClick={() => navigate('/addvideo')}>Adicionar vídeo</Button>
+                    <Button onClick={() => navigate('/addshorts')}>Adicionar shorts</Button>
+                </div>
             </Banner>
-            <Container shorts={false} openMenu={ openMenu }>
+            <Container>
                 {videoUser.map((video: IVideos) => (
                     <VideoComponent 
                         thumb={video.thumb}
