@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+<h1 align="center">Youtube Clone | by Reinaldo Alves</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Sobre o projeto
 
-## Available Scripts
+Youtube Clone é uma aplicação que tenta reproduzir as funcionalidades do Youtube. Este sistema permite que o usuário crie uma conta com nome, email, senha e foto de perfil e faça login por meio desta conta, para que possa adicionar seus próprios vídeos e shorts, com informações como título, categoria, descrição e até foto de capa (thumbnail). Além de trabalar com vídeos criados na aplicação, Youtube Clone também está integrado à API do Youtube, ou seja, é possível exibir cards dos vídeos mais populares da plataforma do Google, tanto na página inicial quanto nas páginas de categorias e nas pesquisas. Para construir a interface do Youtube Clone, foi utilizado o framework **React** com **TypeScript** e **Styled Components**, enquanto que para o back-end foi utilizado **Node.js** com requisições através do **Axios** e integração com banco de dados **MariaDB**.
 
-In the project directory, you can run:
+OBS: O sistema ainda não permite que os vídeos sejam reproduzidos.
 
-### `npm start`
+## Como utilizar o sistema?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Preparando o ambiente
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Para que o Youtube Clone possa funcionar na sua máquina, você precisa ter as ferramentas **Node.js** e o **Git** instaladas, além do **banco de dados**. Caso ainda não tenha, acesse os links abaixo para instalar.
 
-### `npm test`
+- Node.js: https://nodejs.org/
+- Git: https://git-scm.com/downloads/
+- Banco de dados (MariaDB): https://mariadb.org/download/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Instalando o sistema
 
-### `npm run build`
+Acesse o terminal do seu sistema operacional e navegue até o diretório onde deseja instalar o sistema. Em seguida, digite os seguintes comandos para clonar os repositórios do front-end e do back-end.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Front-end: `git clone https://github.com/reinaldo-alves/youtube-clone.git`
+- Back-end: `git clone https://github.com/reinaldo-alves/api-youtube.git`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Após a clonagem, navegue até a pasta onde foi instalado o front-end e execute o comando `npm install` para instalar as dependências do projeto. Em seguida, repita o mesmo procedimento para o back-end.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Por fim , acesse o arquivo `.env` na pasta do back-end e configure as variáveis de ambiente de acordo com o seu banco de dados (`SECRET`, `USER_DATABASE`, `PASSWORD_DATABASE`, `DATABASE`, `HOST_DATABASE` e `PORT_DATABASE`).
 
-### `npm run eject`
+OBS: A variável de ambiente `PORT_DATABASE` deve ser diferente de 3000 e 4000.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Executando o projeto
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+No terminal, navegue até a pasta do back-end e execute o seguinte comando `npm run dev`, para que o servidor possa rodar na porta 4000 da sua máquina.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Em seguida, abra outra aba ou janela do terminal, navegue até a pasta do front-end e execute o comando `npm start` para executar o projeto.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Por fim, acesse o endereço http://localhost:3000 no seu navegador para começar a usar o Youtube Clone.
 
-## Learn More
+OBS: certifique-se de que as portas 3000 e 4000 estejam livres em sua máquina.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contribua com o Youtube Clone:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Se você tiver alguma dúvida, encontrar algum problema ou quiser fazer uma sugestão para melhorar a aplicação, abra uma issue neste repositório ou entre em contato por email ou pelas redes sociais:
+- [E-mail](mailto:reinaldoasjr8@gmail.com)
+- [Instagram](https://www.instagram.com/reinaldo.alves8/)
+- [Linkedin](https://www.linkedin.com/in/reinaldo-alves-8639aba9/)
