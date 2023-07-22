@@ -21,11 +21,31 @@ export async function loadVideosAPI(url: string) {
     }
 }
 
-function convertVideos(videos: Array<IVideosAPI>) {
+export async function loadChannelImages(videos: any) {
+    try {
+        const channelArray = videos.map((item: any) => (item.snippet.channelId));
+        const imagesArray = channelArray.map(async (item: string) => await axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${item}&key=AIzaSyDeTcmAPDBl7cmV-R4OeGGn8xS5Q_FaifE`))  
+        
+        const resolved = await Promise.all(imagesArray)
+
+        const channelImages = resolved.map((res) => {
+            const imageUrl = res.data.items[0]?.snippet?.thumbnails?.high?.url || res.data.items[0]?.snippet?.thumbnails?.default?.url;
+            return imageUrl || '';
+        })
+        
+        return channelImages
+    } catch(error) {
+        console.log(error)
+        alert('Erro ao carregar a imagem do canal');
+        return [];
+    }
+}
+
+function convertVideos(videos: Array<IVideosAPI>, images: Array<string>) {
     return videos.map((item: IVideosAPI, index: number) => ({
         video_id: item.id,
         thumb: item.snippet.thumbnails.maxres?.url || item.snippet.thumbnails.high?.url,
-        avatar: '',
+        avatar: images[index],
         title: item.snippet.title,
         channel: item.snippet.channelTitle,
         views: item.statistics.viewCount,
@@ -36,11 +56,11 @@ function convertVideos(videos: Array<IVideosAPI>) {
     }))
 }
 
-function convertSearchVideos(videos: Array<IVideosSearch>) {
+function convertSearchVideos(videos: Array<IVideosSearch>, images: Array<string>) {
     return videos.map((item: IVideosSearch, index: number) => ({
         video_id: item.id.videoID,
         thumb: item.snippet.thumbnails.high?.url,
-        avatar: '',
+        avatar: images[index],
         title: item.snippet.title,
         channel: item.snippet.channelTitle,
         views: 'Sem',
@@ -51,16 +71,11 @@ function convertSearchVideos(videos: Array<IVideosSearch>) {
     }))
 }
 
-export function getAllVideos(videosDB: Array<IVideos>, videosAPI: Array<IVideosAPI>) {
-    const convertedVideosAPI = convertVideos(videosAPI);
+export function getAllVideos(videosDB: Array<IVideos>, videosAPI: Array<IVideosAPI>, images: Array<string>) {
+    const convertedVideosAPI = convertVideos(videosAPI, images);
+    // console.log(convertedVideosAPI)
     const vid = [...videosDB, ...convertedVideosAPI]
-    const tam = () => {
-        if (vid.length >= 60) {
-            return 60
-        } else {
-            return vid.length
-        }
-    }
+    const tam = () => (vid.length >= 60 ? 60 : vid.length)
     for (let i = vid.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [vid[i], vid[j]] = [vid[j], vid[i]];
@@ -68,8 +83,8 @@ export function getAllVideos(videosDB: Array<IVideos>, videosAPI: Array<IVideosA
     return vid.slice(0, tam())
 }
 
-export function getAllSearchVideos(videosDB: Array<IVideos>, videosAPI: Array<IVideosSearch>) {
-    const convertedVideosAPI = convertSearchVideos(videosAPI);
+export function getAllSearchVideos(videosDB: Array<IVideos>, videosAPI: Array<IVideosSearch>, images: Array<string>) {
+    const convertedVideosAPI = convertSearchVideos(videosAPI, images);
     const vid = [...videosDB, ...convertedVideosAPI]
     const tam = () => {
         if (vid.length >= 50) {

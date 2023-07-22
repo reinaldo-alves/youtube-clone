@@ -15,6 +15,7 @@ export interface IVideosAPI {
     id: string;
     snippet: {
         title: string;
+        channelId: string;
         thumbnails: {
             high: {
                 url: string;
@@ -39,6 +40,7 @@ export interface IVideosSearch {
     },
     snippet: {
         title: string;
+        channelId: string;
         thumbnails: {
             high: {
                 url: string;

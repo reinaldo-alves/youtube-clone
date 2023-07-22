@@ -10,11 +10,11 @@ import { ShortContext } from '../../contexts/shortContext';
 import { useNavigate } from 'react-router-dom';
 import { IShorts, IVideos } from '../../types/types';
 import CategoriesBar from '../../components/categoriesBar';
-import { getAllVideos, loadVideosAPI } from '../../utilities/functions';
+import { getAllVideos, loadChannelImages, loadVideosAPI } from '../../utilities/functions';
 
 function Home() { 
     const { openMenu } = useContext(MenuContext);
-    const { videos, videosAPI, setVideosAPI } = useContext(VideoContext);
+    const { videos, videosAPI, setVideosAPI, channelImages, setChannelImages } = useContext(VideoContext);
     const { shorts } = useContext(ShortContext);
 
     const [allVideos, setAllVideos] = useState([] as Array<IVideos>);
@@ -25,6 +25,8 @@ function Home() {
     
     const fetchData = async () => {
         const apiVideos = await loadVideosAPI(url);
+        const images = await loadChannelImages(apiVideos);
+        setChannelImages(images);
         setVideosAPI(apiVideos);
     };
     
@@ -33,8 +35,10 @@ function Home() {
     }, [])
 
     useEffect(() => {
-        setAllVideos(getAllVideos(videos, videosAPI));
+        setAllVideos(getAllVideos(videos, videosAPI, channelImages));
     }, [videos.length, videosAPI.length])
+
+    // console.log(channelImages)
 
     return (
         <div style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}} >

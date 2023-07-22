@@ -31,12 +31,12 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 import { VideoContext } from "../../contexts/videoContext";
 import { ShortContext } from "../../contexts/shortContext";
-import { loadVideosAPI } from "../../utilities/functions";
+import { loadChannelImages, loadVideosAPI } from "../../utilities/functions";
 
 function Header() {
     const { token, login, logOut, initial, user, avatar, userColor } = useContext(UserContext);
     const { openMenu, setOpenMenu, showMenu, setShowMenu, dropdown, setDropdown, dropVideo, setDropVideo, dropSearch, setDropSearch } = useContext(MenuContext);
-    const { search, setSearch, searchVideos, setVideoSearchAPI } = useContext(VideoContext);
+    const { search, setSearch, searchVideos, setVideoSearchAPI, channelImagesSearch, setChannelImagesSearch } = useContext(VideoContext);
     const { searchShorts } = useContext(ShortContext);
     const navigate = useNavigate();
     const inputSearch = useRef<HTMLInputElement>(null);
@@ -56,6 +56,8 @@ function Header() {
     const fetchData = async () => {
         const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search.trim()}&maxResults=60&key=AIzaSyDeTcmAPDBl7cmV-R4OeGGn8xS5Q_FaifE`
         const apiVideos = await loadVideosAPI(url);
+        const images = await loadChannelImages(apiVideos);
+        setChannelImagesSearch(images);
         setVideoSearchAPI(apiVideos);
     };
 

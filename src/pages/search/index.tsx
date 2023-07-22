@@ -10,14 +10,14 @@ import { getAllSearchVideos } from '../../utilities/functions';
 import { MenuContext } from '../../contexts/menuContext';
 
 function Search() { 
-    const { videoSearch, videoSearchAPI } = useContext(VideoContext);
+    const { videoSearch, videoSearchAPI, channelImagesSearch } = useContext(VideoContext);
     const { shortSearch } = useContext(ShortContext);
     const { openMenu } = useContext(MenuContext)
 
     const [allVideoSearch, setAllVideoSearch] = useState([] as Array<IVideos>)
 
     useEffect(() => {
-        setAllVideoSearch(getAllSearchVideos(videoSearch, videoSearchAPI));
+        setAllVideoSearch(getAllSearchVideos(videoSearch, videoSearchAPI, channelImagesSearch));
     }, [videoSearch, videoSearchAPI])
 
     return (

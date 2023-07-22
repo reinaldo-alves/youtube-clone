@@ -5,11 +5,11 @@ import { Container } from "./styles";
 import { VideoContext } from '../../contexts/videoContext';
 import { IVideos, IVideosAPI } from '../../types/types';
 import CategoriesBar from '../../components/categoriesBar';
-import { getAllVideos, loadVideosAPI } from '../../utilities/functions';
+import { getAllVideos, loadChannelImages, loadVideosAPI } from '../../utilities/functions';
 
 function Categories() { 
     const { openMenu } = useContext(MenuContext);
-    const { videoCat, category } = useContext(VideoContext);
+    const { videoCat, category, channelImages, setChannelImages } = useContext(VideoContext);
 
     const [allCatVideos, setAllCatVideos] = useState([] as Array<IVideos>);
     const [videosCatAPI, setVideosCatAPI] = useState([] as Array<IVideosAPI>);
@@ -17,6 +17,8 @@ function Categories() {
     const fetchData = async () => {
         const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=statistics&chart=mostPopular&hl=pt_BR&maxResults=50&regionCode=br&videoCategoryId=${category.id}&key=AIzaSyDeTcmAPDBl7cmV-R4OeGGn8xS5Q_FaifE`
         const apiVideos = await loadVideosAPI(url);
+        const images = await loadChannelImages(apiVideos);
+        setChannelImages(images);
         setVideosCatAPI(apiVideos);
     };
     
@@ -26,9 +28,9 @@ function Categories() {
 
     useEffect(() => {
         if (category.name === 'Tudo') {
-            setAllCatVideos(getAllVideos([], videosCatAPI));
+            setAllCatVideos(getAllVideos([], videosCatAPI, channelImages));
         } else {
-            setAllCatVideos(getAllVideos(videoCat, videosCatAPI));
+            setAllCatVideos(getAllVideos(videoCat, videosCatAPI, channelImages));
         }
     }, [videoCat, videosCatAPI])
 

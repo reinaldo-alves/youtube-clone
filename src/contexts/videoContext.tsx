@@ -14,6 +14,8 @@ export const VideoStorage = ({ children }: any) => {
     const [videoSearch, setVideoSearch] = useState([] as Array<IVideos>);
     const [videoSearchAPI, setVideoSearchAPI] = useState([] as Array<IVideosSearch>);
     const [search, setSearch] = useState('');
+    const [channelImages, setChannelImages] = useState([] as Array<string>);
+    const [channelImagesSearch, setChannelImagesSearch] = useState([] as Array<string>);
     const { user } = useContext(UserContext);
 
     const categories = [
@@ -86,7 +88,7 @@ export const VideoStorage = ({ children }: any) => {
 
     return (
         <VideoContext.Provider value={{
-            newVideo, videos, videoUser, videoSearch, search, setSearch, searchVideos, category, setCategory, videoCat, videosAPI, setVideosAPI, categories, videoSearchAPI, setVideoSearchAPI
+            newVideo, videos, videoUser, videoSearch, search, setSearch, searchVideos, category, setCategory, videoCat, videosAPI, setVideosAPI, categories, videoSearchAPI, setVideoSearchAPI, channelImages, channelImagesSearch, setChannelImages, setChannelImagesSearch
         }}>
             {children}
         </VideoContext.Provider>
