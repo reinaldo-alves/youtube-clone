@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MenuContext } from '../../contexts/menuContext';
 import VideoComponent from "../../components/videoComponent";
 import { Container, TitleShorts, ArrowDownButton, ShortsContainer } from "./styles";
@@ -10,7 +10,7 @@ import { ShortContext } from '../../contexts/shortContext';
 import { useNavigate } from 'react-router-dom';
 import { IShorts, IVideos } from '../../types/types';
 import CategoriesBar from '../../components/categoriesBar';
-import { getAllVideos, loadChannelImages, loadVideosAPI } from '../../utilities/functions';
+import { calcNumColumns, getAllVideos, loadChannelImages, loadVideosAPI } from '../../utilities/functions';
 
 function Home() { 
     const { openMenu } = useContext(MenuContext);
@@ -18,7 +18,9 @@ function Home() {
     const { shorts } = useContext(ShortContext);
 
     const [allVideos, setAllVideos] = useState([] as Array<IVideos>);
+    const [numColumns, setNumColumns] = useState(0);
 
+    const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     
     const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=statistics&chart=mostPopular&hl=pt_BR&maxResults=50&regionCode=br&videoCategoryId=0&key=AIzaSyDeTcmAPDBl7cmV-R4OeGGn8xS5Q_FaifE`
@@ -38,12 +40,35 @@ function Home() {
         setAllVideos(getAllVideos(videos, videosAPI, channelImages));
     }, [videos.length, videosAPI.length])
 
-    // console.log(channelImages)
+    useEffect(() => {
+        if(containerRef.current) {
+            const width = containerRef.current.clientWidth;
+            const num = calcNumColumns(width);
+            console.log(width, num);
+            setNumColumns(num);
+        }
+    }, [])
+ 
+    useEffect(() => {
+        const handleResize = () => {
+            if(containerRef.current) {
+                const width = containerRef.current.clientWidth;
+                const num = calcNumColumns(width);
+                console.log(width, num);
+                setNumColumns(num);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    },[containerRef.current, openMenu])
 
     return (
-        <div style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}} >
+        <div ref={containerRef} style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}} >
             <CategoriesBar />
-            <Container>
+            <Container columns={numColumns}>
                 {allVideos.map((video: IVideos) => (
                     <VideoComponent 
                         thumb={video.thumb}

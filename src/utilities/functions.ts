@@ -153,3 +153,17 @@ export function convertTime(time: string) {
         }
     }
 }
+
+export function calcNumColumns(width: number) {
+    if (width >= 1628) {
+        return 5
+    } else if (width >= 1308) {
+        return 4
+    } else if (width >= 988) {
+        return 3
+    } else if (width >= 668) {
+        return 2
+    } else {
+        return 1
+    }
+}

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{columns: number}>`
     width: auto;
     max-width: 1800px;
     box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(${({columns}) => columns? columns : ''}, 1fr);
     gap: 50px 20px;
     padding: 24px;
 `;
@@ -15,6 +15,7 @@ export const Banner = styled.div<{color: string}>`
     border-radius: 8px;
     border: 5px solid ${({ color }) => color? color : 'transparent'};
     width: calc(100% - 50px);
+    max-width: 1800px;
     height: 150px;
     box-sizing: border-box;
     display: grid;
